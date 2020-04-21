@@ -114,9 +114,9 @@ export default function Dashboard() {
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        YOBA
+      {'Created by'}
+      <Link color="inherit" href="https://github.com/Hotriden/YOBA_UI/tree/master">
+        Rifter
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
