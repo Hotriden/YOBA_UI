@@ -10,7 +10,7 @@ const WareHouseHook = () => {
   }, []);
 
   const getWarehouses = async () => {
-    const url = await fetch('https://yobapp.pp.ua/api/warehouse');
+    const url = await fetch('http://yobapp.pp.ua/api/warehouse', {mode: 'cors'});
     const data = await url.json();
     console.log(data)
     setWarehouses(data);
