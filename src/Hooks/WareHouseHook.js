@@ -10,7 +10,7 @@ const WareHouseHook = () => {
   }, []);
 
   const getWarehouses = async () => {
-    var urlApi = "//apiyoba.pp.ua/api/warehouse";
+    var urlApi = "http://apiyoba.pp.ua/api/warehouse";
     const url = await fetch(urlApi, {mode: 'cors'});
     const data = await url.json();
     console.log(data)
