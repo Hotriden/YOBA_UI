@@ -3,7 +3,7 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
-import WareHouseHook from './Hooks/WareHouseHook';
+import GetWareHouses from './Hooks/GetWareHouses';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -20,8 +20,8 @@ export default function Deposits() {
   return (
     <React.Fragment>
       <Title>Recent Deposits</Title>
-      <Typography component="p" variant="h4">
-        <WareHouseHook/>
+      <Typography variant="h4">
+        <GetWareHouses/>
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         on 15 March, 2019
