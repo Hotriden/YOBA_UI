@@ -10,18 +10,17 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { supplyListItems, salesListItems, financeListItems, staffListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import ModalBox from './Autentification/LoginModalBox/ModalBox';
 
 export default function Dashboard() {
   const classes = useStyles();
@@ -51,11 +50,7 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             YOBA - Your own business application
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <ModalBox/>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -114,7 +109,7 @@ export default function Dashboard() {
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Created by'}
+      {'Created by '}
       <Link color="inherit" href="https://github.com/Hotriden/YOBA_UI/tree/master">
         Rifter
       </Link>{' '}

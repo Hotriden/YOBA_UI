@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import WareHouse from "./WareHouse";
 
-const WareHouseHook = () => {
+function WareHouseHook(props){
 
   const [wareHouses, setWarehouses] = useState([]);
 
@@ -18,9 +18,10 @@ const WareHouseHook = () => {
   }
 
   return(
-    <span className="WareHouseHook">
+    <span className={props}>
       {wareHouses.map(wareHouse => (
         <WareHouse
+        key={wareHouse.id}
         createdBy={wareHouse.createdBy}
         wareHouseName={wareHouse.wareHouseName}
         address={wareHouse.address} />
