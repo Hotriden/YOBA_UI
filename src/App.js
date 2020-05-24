@@ -1,10 +1,9 @@
 import React from 'react';
-import Dashboard from './Dashboard';
-import Post from './Autentification/JWT/Post';
+import Layout from './Layout/Layout';
 
 function App() {
   return (
-    <Post/>
+    <Layout/>
   );
 }
 

@@ -15,6 +15,16 @@ import HouseIcon from '@material-ui/icons/House';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import SortIcon from '@material-ui/icons/Sort';
+import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import Home from './Autentification/JWT/Home';
+
+export const ListItems = (
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" exact component={Home}/>
+    </Switch>
+  </BrowserRouter>
+);
 
 export const supplyListItems = (
   <div>

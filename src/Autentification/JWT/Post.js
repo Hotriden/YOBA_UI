@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class Post extends Component {
   state = {
@@ -24,8 +27,13 @@ class Post extends Component {
         warehouseName: this.state.warehouseName,
         address: this.state.address
     };
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + cookies.get('cool-jwt');
     axios
-      .post("http://apiyoba.pp.ua/api/warehouse", data)
+      .post("http://localhost:54889/api/warehouse", data, {
+        headers: {
+        "Access-Control-Allow-Origin" : "*"
+      }
+    })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
