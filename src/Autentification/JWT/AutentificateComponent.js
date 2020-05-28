@@ -17,7 +17,7 @@ class AutentificateComponent extends Component {
             this.props.history.push('/Login');
         }
 
-        axios.get('http://apiyoba.pp.ua/api/jwt', {headers: {Authorization: `Bearer ${jwt}`}, 'Content-Type': 'application/json'}).then(res => this.setState({
+        axios.get('http://localhost:54889/api/login/signin', {headers: {Authorization: `Bearer ${jwt}`}, 'Content-Type': 'application/json'}).then(res => this.setState({
             user: res.data
         })).catch(err => {
             localStorage.removeItem('cool-jwt');

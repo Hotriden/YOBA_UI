@@ -7,29 +7,34 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TextField from '@material-ui/core/TextField';
 import './ModalBoxStyle.css';
 import './Animate.css';
+import GetJwt from '../JWT/GetJwt';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 function ModalBox () {
 
     const cookies = new Cookies();
+    const [newEmail, setNewEmail] = useState('');
     const [user, setUser] = useState('Guest');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const submitLogin = (e) => {
-        e.preventDefault();
-        axios.post('http://localhost:54889/api/login/signin',  {
-                email: email,
-                password: password
-            }).then(res => cookies.set('cool-jwt', res.data));
-        setModalIsOpen(false);
-    }
+    const [jwt, setJwt] = useState('');
 
     const cleanBox = () => {
         setModalIsOpen(false);
         setEmail('');
         setPassword('');
+    }
+    const jwtApi = e => {
+        e.preventDefault();
+        setJwt(GetJwt({email, password}));
+    }
+
+    const test = e => {
+        e.preventDefault();
+        axios.get('http://localhost:54889/api/login/secret', {
+            headers: {Authorization: `Bearer ${cookies.get('cool-jwt')}`}});
     }
 
     return(
@@ -64,6 +69,7 @@ function ModalBox () {
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
                             />
+                            <p>{newEmail}</p>
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
@@ -78,13 +84,13 @@ function ModalBox () {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <Button className='button-log' variant="contained" color="primary" size="large" onClick={submitLogin}>
+                            <Button className='button-log' variant="contained" color="primary" size="large" onClick={jwtApi}>
                                 Log In
                             </Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button className='button-forg' variant="contained" color="primary">
-                                Recall
+                            <Button className='button-forg' variant="contained" color="primary" onClick={test}>
+                                Log Out
                             </Button>
                         </Grid>
                     </Grid>
