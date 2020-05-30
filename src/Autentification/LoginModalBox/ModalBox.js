@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from 'react-modal';
 import FaceIcon from '@material-ui/icons/Face';
 import Button from '@material-ui/core/Button';
@@ -8,18 +8,14 @@ import TextField from '@material-ui/core/TextField';
 import './ModalBoxStyle.css';
 import './Animate.css';
 import GetJwt from '../JWT/GetJwt';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
 
-function ModalBox () {
+function ModalBox (props) {
 
-    const cookies = new Cookies();
-    const [newEmail, setNewEmail] = useState('');
-    const [user, setUser] = useState('Guest');
+    const useRegClick = useRef(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [jwt, setJwt] = useState('');
+    const [regForm, setRegForm] = useState(false);
 
     const cleanBox = () => {
         setModalIsOpen(false);
@@ -28,13 +24,14 @@ function ModalBox () {
     }
     const jwtApi = e => {
         e.preventDefault();
-        setJwt(GetJwt({email, password}));
+        GetJwt({email, password});
+        window.location.reload();
     }
 
-    const test = e => {
+    const registerHandler = e => {
         e.preventDefault();
-        axios.get('http://localhost:54889/api/login/secret', {
-            headers: {Authorization: `Bearer ${cookies.get('cool-jwt')}`}});
+        useRegClick.current=true;
+        setRegForm(!regForm);
     }
 
     return(
@@ -42,18 +39,20 @@ function ModalBox () {
             <Button
               variant="outlined"
               color="inherit"
-              endIcon={<FaceIcon fontSize="large"/>}
+              endIcon={<ExitToAppIcon fontSize="large"></ExitToAppIcon>}
               onClick={() => setModalIsOpen(!modalIsOpen)}
             >
-                Log In
+                Sign In
             </Button>
             <Button
               variant="outlined"
               color="inherit"
-              endIcon={ <ExitToAppIcon fontSize="large"></ExitToAppIcon>}
+              endIcon={ <FaceIcon fontSize="large"/> }
+              onClick={registerHandler}
             >
-                Log Out
+                Sign Up
             </Button>
+
             <div >
                 <Modal className='animated bounceInDown delay-0.5s' isOpen={modalIsOpen} onRequestClose={() => cleanBox()} ariaHideApp={false}>
                     <Grid container spacing={3}>
@@ -69,7 +68,6 @@ function ModalBox () {
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
                             />
-                            <p>{newEmail}</p>
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
@@ -89,8 +87,8 @@ function ModalBox () {
                             </Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button className='button-forg' variant="contained" color="primary" onClick={test}>
-                                Log Out
+                            <Button className='button-forg' variant="contained" color="primary">
+                                Remind
                             </Button>
                         </Grid>
                     </Grid>

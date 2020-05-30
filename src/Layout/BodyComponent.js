@@ -8,7 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import clsx from 'clsx';
-
+import Deposit from '../Deposits';
+import LogOut from '../Autentification/LoginModalBox/LogOut';
 
 function BodyComponent(props) {
 
@@ -27,7 +28,7 @@ return(
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper}>
-            {props.children}
+            <Deposit/>
           </Paper>
         </Grid>
         <Grid item xs={12}>

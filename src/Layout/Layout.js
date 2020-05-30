@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,20 +14,30 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../listItems';
 import ModalBox from '../Autentification/LoginModalBox/ModalBox';
 import BodyComponent from './BodyComponent';
-import Deposit from '../Deposits';
+import RegistrationForm from '../Autentification/JWT/RegistrationForm';
+import Cookies from 'universal-cookie';
+import LogOut from '../Autentification/LoginModalBox/LogOut';
 
+const cookies = new Cookies();
 
 function Layout(props) {
-  const JwtUser = 'Guest';
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  const [Body, setBody] = useState(true);
+
+  const handleRegClick = () => {
+    setBody(!Body);
+  }
     
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+
 
   return (
     <div className={classes.root}>
@@ -44,9 +54,10 @@ function Layout(props) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            YOBA - Your own business application. Welcome -  {JwtUser}
+            YOBA - Your own business application. Welcome -  {cookies.get('_user') ? cookies.get('_user') : 'Guest'}
           </Typography>
-          <ModalBox/>
+          { }
+          {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }
         </Toolbar>
       </AppBar>
       <Drawer
@@ -70,9 +81,7 @@ function Layout(props) {
         <Divider />
         <List>{staffListItems}</List>
       </Drawer>
-      <BodyComponent>
-          <Deposit/>
-      </BodyComponent>
+      { Body ?  <BodyComponent /> : <RegistrationForm/>}
     </div>
   );
 }
