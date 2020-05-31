@@ -8,30 +8,28 @@ import TextField from '@material-ui/core/TextField';
 import './ModalBoxStyle.css';
 import './Animate.css';
 import GetJwt from '../JWT/GetJwt';
+import { connect } from 'react-redux'; 
 
 function ModalBox (props) {
 
-    const useRegClick = useRef(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [regForm, setRegForm] = useState(false);
 
     const cleanBox = () => {
         setModalIsOpen(false);
         setEmail('');
         setPassword('');
     }
+
+    function AddTrack(){
+      props.onAddTrack('hui');
+    }
+
     const jwtApi = e => {
         e.preventDefault();
         GetJwt({email, password});
         window.location.reload();
-    }
-
-    const registerHandler = e => {
-        e.preventDefault();
-        useRegClick.current=true;
-        setRegForm(!regForm);
     }
 
     return(
@@ -48,7 +46,7 @@ function ModalBox (props) {
               variant="outlined"
               color="inherit"
               endIcon={ <FaceIcon fontSize="large"/> }
-              onClick={registerHandler}
+              onClick={AddTrack}
             >
                 Sign Up
             </Button>
@@ -98,4 +96,14 @@ function ModalBox (props) {
         );
     }
 
-export default ModalBox;
+export default connect(
+  state => ({
+    testStore: state
+  }),
+  dispatch => ({
+    onAddTrack: (trackName) => {
+      dispatch({ type: 'OPEN_REG', payload: trackName });
+    }
+  })
+)(ModalBox);
+      

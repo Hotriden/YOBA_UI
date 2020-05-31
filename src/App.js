@@ -1,11 +1,24 @@
 import React from 'react';
 import Layout from './Layout/Layout';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'  
-import RegistartionForm from './Autentification/JWT/RegistrationForm';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+function playlist(state, action) {
+  if (action.type === 'OPEN_REG') {
+    return [
+      true
+    ];
+  }
+  return state;
+}
+
+const store = createStore(playlist);
 
 function App() {
   return (
-    <Layout/>
+    <Provider store={store}>
+      <Layout/>
+    </Provider>
   );
 }
 

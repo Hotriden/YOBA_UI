@@ -11,33 +11,33 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../listItems';
+import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/listItems';
 import ModalBox from '../Autentification/LoginModalBox/ModalBox';
 import BodyComponent from './BodyComponent';
-import RegistrationForm from '../Autentification/JWT/RegistrationForm';
+import RegistrationForm from '../Autentification/LoginModalBox/RegistrationForm';
 import Cookies from 'universal-cookie';
 import LogOut from '../Autentification/LoginModalBox/LogOut';
+import { connect } from 'react-redux'; 
 
 const cookies = new Cookies();
 
 function Layout(props) {
+  console.log(props.Store);
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
+  const openRegWindow = () => {
+    console.log(props.testStore);
+  }
+
   const [Body, setBody] = useState(true);
 
-  const handleRegClick = () => {
-    setBody(!Body);
-  }
-    
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-
 
   return (
     <div className={classes.root}>
@@ -60,6 +60,7 @@ function Layout(props) {
           {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }
         </Toolbar>
       </AppBar>
+      <button onClick={openRegWindow}>ClICK ME</button>
       <Drawer
         variant="permanent"
         classes={{
@@ -148,4 +149,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default Layout;
+export default connect(
+  state => ({
+    Store: state
+  })
+)(Layout)

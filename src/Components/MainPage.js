@@ -6,8 +6,6 @@ import Deposits from './Deposits';
 import Chart from './Chart';
 import clsx from 'clsx';
 
-
-
 export default function MainPage() {
 
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
