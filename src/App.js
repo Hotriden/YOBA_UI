@@ -3,16 +3,21 @@ import Layout from './Layout/Layout';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-function playlist(state, action) {
+const initialState = {
+  REG_WINDOW : '',
+  MAIN_WINDOW : ''
+};
+
+function yobaState(state = initialState, action) {
   if (action.type === 'OPEN_REG') {
-    return [
-      true
-    ];
+    return {
+      OPEN_REG : action.payload
+    };
   }
   return state;
 }
 
-const store = createStore(playlist);
+const store = createStore(yobaState);
 
 function App() {
   return (

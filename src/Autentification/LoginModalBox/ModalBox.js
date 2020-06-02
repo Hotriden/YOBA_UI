@@ -22,9 +22,13 @@ function ModalBox (props) {
         setPassword('');
     }
 
-    function AddTrack(){
-      props.onAddTrack('hui');
+    function OpenRegWindow(){
+        props.Store['REG_WINDOW'] = 'true'
     }
+
+  /*   function showProps() {
+        console.log(props.Store);
+    } */
 
     const jwtApi = e => {
         e.preventDefault();
@@ -46,7 +50,7 @@ function ModalBox (props) {
               variant="outlined"
               color="inherit"
               endIcon={ <FaceIcon fontSize="large"/> }
-              onClick={AddTrack}
+              onClick={OpenRegWindow}
             >
                 Sign Up
             </Button>
@@ -98,11 +102,11 @@ function ModalBox (props) {
 
 export default connect(
   state => ({
-    testStore: state
+    Store: state
   }),
   dispatch => ({
-    onAddTrack: (trackName) => {
-      dispatch({ type: 'OPEN_REG', payload: trackName });
+    OpenRegWindow: (value) => {
+      dispatch({ type: 'REG_WINDOW:', payload: value });
     }
   })
 )(ModalBox);
