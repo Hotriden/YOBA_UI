@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 const initialState = {
-  REG_WINDOW : '',
+  REG_WINDOW : 'false',
   MAIN_WINDOW : ''
 };
 

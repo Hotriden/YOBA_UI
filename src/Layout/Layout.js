@@ -1,4 +1,4 @@
-import React, {Component, useState } from 'react';
+import React, {Component, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -18,7 +18,7 @@ import RegistrationForm from '../Autentification/LoginModalBox/RegistrationForm'
 import Cookies from 'universal-cookie';
 import LogOut from '../Autentification/LoginModalBox/LogOut';
 import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
+import { compose } from 'redux';
 
 const cookies = new Cookies();
 
@@ -27,7 +27,8 @@ class Layout extends Component{
     super(props);
     this.state = {
       searchNodes: "",
-      openBar : true
+      openBar : true,
+      regWindow: false
     }
   }
 
@@ -41,17 +42,24 @@ class Layout extends Component{
     this.forceUpdate()
   }
 
+
+
   regWin = () => {
-    if(this.props.State['REG_WINDOW']==='true'){
+    console.log(this.props.Store)
+    if(this.props.Store['REG_WINDOW']==='true'){
       return 'true'
     }
     else{
       return 'false'
     }
-    this.forceUpdate();
+  }
+
+  showProps = () => {
+    console.log(this.props.Store);
   }
 
   render() {
+    console.log(this.props.Store);
     const { classes } = this.props;
 
     return (
@@ -74,6 +82,7 @@ class Layout extends Component{
             { }
             {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }
           </Toolbar>
+          <button onClick={this.showProps}>Click me</button>
         </AppBar>
         <Drawer
           variant="permanent"
@@ -96,7 +105,7 @@ class Layout extends Component{
           <Divider />
           <List>{staffListItems}</List>
         </Drawer>
-        { this.regWin ? <RegistrationForm /> : <BodyComponent/>}
+        { this.props.Store['REG_WINDOW']==='false' ? <RegistrationForm /> : <BodyComponent/>}
       </div>
     );
   }

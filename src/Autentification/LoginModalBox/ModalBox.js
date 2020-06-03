@@ -26,10 +26,6 @@ function ModalBox (props) {
         props.Store['REG_WINDOW'] = 'true'
     }
 
-  /*   function showProps() {
-        console.log(props.Store);
-    } */
-
     const jwtApi = e => {
         e.preventDefault();
         GetJwt({email, password});
