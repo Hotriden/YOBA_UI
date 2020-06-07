@@ -1,29 +1,27 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import FaceIcon from '@material-ui/icons/Face';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TextField from '@material-ui/core/TextField';
-import './ModalBoxStyle.css';
-import './Animate.css';
 import GetJwt from '../JWT/GetJwt';
+import './Animate.css';
+import './ModalBoxStyle.css';
 import { connect } from 'react-redux'; 
+import { useDispatch } from 'react-redux';
+import { RegistrationSwitcher } from '../../GlobalState/Actions/RegistrationSwitcher';
+import { LogInSwitcher } from '../../GlobalState/Actions/LogInSwitcher';
 
 function ModalBox (props) {
-
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const cleanBox = () => {
-        setModalIsOpen(false);
+        dispatch(LogInSwitcher());
         setEmail('');
         setPassword('');
-    }
-
-    function OpenRegWindow(){
-        props.Store['REG_WINDOW'] = 'true'
     }
 
     const jwtApi = e => {
@@ -33,12 +31,12 @@ function ModalBox (props) {
     }
 
     return(
-        <div className='ModalBox'>
+        <div >
             <Button
               variant="outlined"
               color="inherit"
               endIcon={<ExitToAppIcon fontSize="large"></ExitToAppIcon>}
-              onClick={() => setModalIsOpen(!modalIsOpen)}
+              onClick={() => dispatch(LogInSwitcher())}
             >
                 Sign In
             </Button>
@@ -46,13 +44,12 @@ function ModalBox (props) {
               variant="outlined"
               color="inherit"
               endIcon={ <FaceIcon fontSize="large"/> }
-              onClick={OpenRegWindow}
+              onClick={() => dispatch(RegistrationSwitcher())}
             >
                 Sign Up
             </Button>
-
-            <div >
-                <Modal className='animated bounceInDown delay-0.5s' isOpen={modalIsOpen} onRequestClose={() => cleanBox()} ariaHideApp={false}>
+            <div>
+                <Modal className='animated fadeIn delay-0.7s' isOpen={props.Store.LogInWindow} onRequestClose={() => cleanBox()} ariaHideApp={false}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} className="log-banner">
                             <p>Input your email and password</p>
@@ -96,14 +93,5 @@ function ModalBox (props) {
         );
     }
 
-export default connect(
-  state => ({
-    Store: state
-  }),
-  dispatch => ({
-    OpenRegWindow: (value) => {
-      dispatch({ type: 'REG_WINDOW:', payload: value });
-    }
-  })
-)(ModalBox);
+export default connect(state => ({ Store: state}))(ModalBox);
       

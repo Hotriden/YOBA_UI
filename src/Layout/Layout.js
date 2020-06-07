@@ -1,6 +1,6 @@
-import React, {Component, useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,60 +19,26 @@ import Cookies from 'universal-cookie';
 import LogOut from '../Autentification/LoginModalBox/LogOut';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { useDispatch } from 'react-redux';
+import { SideBarSwitcher } from '../GlobalState/Actions/SideBarSwitcher';
 
 const cookies = new Cookies();
 
-class Layout extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      searchNodes: "",
-      openBar : true,
-      regWindow: false
-    }
-  }
-
-  handleDrawerOpen = () => {
-    this.state.openBar = true;
-    this.forceUpdate()
-  }
-
-  handleDrawerClose = () => {
-    this.state.openBar = false;
-    this.forceUpdate()
-  }
-
-
-
-  regWin = () => {
-    console.log(this.props.Store)
-    if(this.props.Store['REG_WINDOW']==='true'){
-      return 'true'
-    }
-    else{
-      return 'false'
-    }
-  }
-
-  showProps = () => {
-    console.log(this.props.Store);
-  }
-
-  render() {
-    console.log(this.props.Store);
-    const { classes } = this.props;
+function Layout(props){
+  const { classes } = props;
+  const dispatch = useDispatch();
 
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="absolute" className={clsx(classes.appBar, this.state.openBar && classes.appBarShift)}>
+        <AppBar position="absolute" className={clsx(classes.appBar, props.Store.SideBar && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              className={clsx(classes.menuButton, this.state.openBar && classes.menuButtonHidden)}
+              onClick={() => dispatch(SideBarSwitcher())}
+              className={clsx(classes.menuButton, props.Store.SideBar && classes.menuButtonHidden)}
             >
               <MenuIcon />
             </IconButton>
@@ -82,17 +48,15 @@ class Layout extends Component{
             { }
             {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }
           </Toolbar>
-          <button onClick={this.showProps}>Click me</button>
         </AppBar>
         <Drawer
           variant="permanent"
           classes={{
-            paper: clsx(classes.drawerPaper, !this.state.openBar && classes.drawerPaperClose),
+            paper: clsx(classes.drawerPaper, !props.Store.SideBar && classes.drawerPaperClose),
           }}
-          openBar={this.state.openBar}
         >
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={this.handleDrawerClose}>
+            <IconButton onClick={() => dispatch(SideBarSwitcher())}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
@@ -105,20 +69,17 @@ class Layout extends Component{
           <Divider />
           <List>{staffListItems}</List>
         </Drawer>
-        { this.props.Store['REG_WINDOW']==='false' ? <RegistrationForm /> : <BodyComponent/>}
+        { props.Store.RegistrationWindow ? <RegistrationForm /> : <BodyComponent/>}
       </div>
     );
   }
-}
-
-const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: 'flex',
@@ -135,8 +96,8 @@ const styles = theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: 240,
+    width: `calc(100% - ${240}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -154,7 +115,7 @@ const styles = theme => ({
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
-    width: drawerWidth,
+    width: 240,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -173,7 +134,4 @@ const styles = theme => ({
   }
 });
 
-export default compose(connect(
-  state => ({
-    Store: state
-  })), withStyles(styles, { withTheme: true }))(Layout)
+export default compose(connect(state => ({Store: state})), withStyles(styles, { withTheme: true }))(Layout)

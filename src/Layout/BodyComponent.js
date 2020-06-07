@@ -41,10 +41,8 @@ return(
       </Box>
     </Container>
   </main>
-);
+  );
 }
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
