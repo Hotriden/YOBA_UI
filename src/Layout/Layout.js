@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,80 +11,75 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../listItems';
+import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/listItems';
 import ModalBox from '../Autentification/LoginModalBox/ModalBox';
 import BodyComponent from './BodyComponent';
-import Deposit from '../Deposits';
+import RegistrationForm from '../Autentification/LoginModalBox/RegistrationForm';
+import Cookies from 'universal-cookie';
+import LogOut from '../Autentification/LoginModalBox/LogOut';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { useDispatch } from 'react-redux';
+import { SideBarSwitcher } from '../GlobalState/Actions/SideBarSwitcher';
 
+const cookies = new Cookies();
 
-function Layout(props) {
-  const JwtUser = 'Guest';
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-    
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+function Layout(props){
+  const { classes } = props;
+  const dispatch = useDispatch();
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            YOBA - Your own business application. Welcome -  {JwtUser}
-          </Typography>
-          <ModalBox/>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>{supplyListItems}</List>
-        <Divider />
-        <List>{salesListItems}</List>
-        <Divider />
-        <List>{financeListItems}</List>
-        <Divider />
-        <List>{staffListItems}</List>
-      </Drawer>
-      <BodyComponent>
-          <Deposit/>
-      </BodyComponent>
-    </div>
-  );
-}
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="absolute" className={clsx(classes.appBar, props.Store.SideBar && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => dispatch(SideBarSwitcher())}
+              className={clsx(classes.menuButton, props.Store.SideBar && classes.menuButtonHidden)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+              YOBA - Your own business application. Welcome -  {cookies.get('_user') ? cookies.get('_user') : 'Guest'}
+            </Typography>
+            { }
+            {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !props.Store.SideBar && classes.drawerPaperClose),
+          }}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={() => dispatch(SideBarSwitcher())}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>{supplyListItems}</List>
+          <Divider />
+          <List>{salesListItems}</List>
+          <Divider />
+          <List>{financeListItems}</List>
+          <Divider />
+          <List>{staffListItems}</List>
+        </Drawer>
+        { props.Store.RegistrationWindow ? <RegistrationForm /> : <BodyComponent/>}
+      </div>
+    );
+  }
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: 'flex',
@@ -101,8 +96,8 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: 240,
+    width: `calc(100% - ${240}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -120,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
-    width: drawerWidth,
+    width: 240,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -137,6 +132,6 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   }
-}));
+});
 
-export default Layout;
+export default compose(connect(state => ({Store: state})), withStyles(styles, { withTheme: true }))(Layout)

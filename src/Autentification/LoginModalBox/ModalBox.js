@@ -5,52 +5,51 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TextField from '@material-ui/core/TextField';
-import './ModalBoxStyle.css';
+import GetJwt from '../JWT/GetJwt';
 import './Animate.css';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
+import './ModalBoxStyle.css';
+import { connect } from 'react-redux'; 
+import { useDispatch } from 'react-redux';
+import { RegistrationSwitcher } from '../../GlobalState/Actions/RegistrationSwitcher';
+import { LogInSwitcher } from '../../GlobalState/Actions/LogInSwitcher';
 
-function ModalBox () {
-
-    const cookies = new Cookies();
-    const [user, setUser] = useState('Guest');
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+function ModalBox (props) {
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const submitLogin = (e) => {
-        e.preventDefault();
-        axios.post('http://localhost:54889/api/login/signin',  {
-                email: email,
-                password: password
-            }).then(res => cookies.set('cool-jwt', res.data));
-        setModalIsOpen(false);
-    }
 
     const cleanBox = () => {
-        setModalIsOpen(false);
+        dispatch(LogInSwitcher());
         setEmail('');
         setPassword('');
     }
 
+    const jwtApi = e => {
+        e.preventDefault();
+        GetJwt({email, password});
+        window.location.reload();
+    }
+
     return(
-        <div className='ModalBox'>
+        <div >
             <Button
               variant="outlined"
               color="inherit"
-              endIcon={<FaceIcon fontSize="large"/>}
-              onClick={() => setModalIsOpen(!modalIsOpen)}
+              endIcon={<ExitToAppIcon fontSize="large"></ExitToAppIcon>}
+              onClick={() => dispatch(LogInSwitcher())}
             >
-                Log In
+                Sign In
             </Button>
             <Button
               variant="outlined"
               color="inherit"
-              endIcon={ <ExitToAppIcon fontSize="large"></ExitToAppIcon>}
+              endIcon={ <FaceIcon fontSize="large"/> }
+              onClick={() => dispatch(RegistrationSwitcher())}
             >
-                Log Out
+                Sign Up
             </Button>
-            <div >
-                <Modal className='animated bounceInDown delay-0.5s' isOpen={modalIsOpen} onRequestClose={() => cleanBox()} ariaHideApp={false}>
+            <div>
+                <Modal className='animated fadeIn delay-0.7s' isOpen={props.Store.LogInWindow} onRequestClose={() => cleanBox()} ariaHideApp={false}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} className="log-banner">
                             <p>Input your email and password</p>
@@ -78,13 +77,13 @@ function ModalBox () {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <Button className='button-log' variant="contained" color="primary" size="large" onClick={submitLogin}>
+                            <Button className='button-log' variant="contained" color="primary" size="large" onClick={jwtApi}>
                                 Log In
                             </Button>
                         </Grid>
                         <Grid item xs={6}>
                             <Button className='button-forg' variant="contained" color="primary">
-                                Recall
+                                Remind
                             </Button>
                         </Grid>
                     </Grid>
@@ -94,4 +93,5 @@ function ModalBox () {
         );
     }
 
-export default ModalBox;
+export default connect(state => ({ Store: state}))(ModalBox);
+      
