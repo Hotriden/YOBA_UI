@@ -13,69 +13,143 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import SendRegistrationData from '../JWT/SendRegistrationData';
+import { useDispatch } from 'react-redux';
+import { RegistrationSwitcher } from '../../GlobalState/Actions/RegistrationSwitcher';
 
 function getSteps() {
   return ['Input personal data', 'Create an ad group', 'Create an ad'];
 }
 
-
-
 function RegistrationForm(props) {
+
+  const dispatch = useDispatch();
+  const [activeStep, setActiveStep] = useState(0);
+  const [accessReg, setAccessReg] = useState(false);
+  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
+  const [errorUserName, setErrorUserName] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+  const [errorCheckPassword, setErrorCheckPassword] = useState('');
+  const [formIsValid, setFormIsValid] = useState(true);
+
+  const steps = getSteps();
+  const { classes } = props;
+
+  function submituserRegistrationForm(e) {
+    e.preventDefault();
+    validateForm();
+  }
+  
+  function validateForm() {
+  
+  
+    if (userName === '' | !userName.match(/^[a-zA-Z ]*$/)) {
+      setFormIsValid(false);
+      setErrorUserName('*Please enter alphabet characters only.');
+    }
+    else{
+      setFormIsValid(true);
+      setErrorUserName('');
+    }
+  
+    if (email === '') {
+      setFormIsValid(false);
+      setErrorEmail('*Please enter your email.');
+    }
+    else{
+      setFormIsValid(true);
+      setErrorEmail('');
+    }
+  
+    if (email !== 'undefined') {
+      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      if (!pattern.test(email)) {
+        setFormIsValid(false);
+        setErrorEmail('*Please enter valid email');
+      }
+    }
+    else{
+      setFormIsValid(true);
+      setErrorEmail('');
+    }
+  
+    if (password === '') {
+      setFormIsValid(false);
+      setErrorPassword('*Please enter your password.');
+    }
+    else{
+      setFormIsValid(true);
+      setErrorPassword('');
+    }
+  
+    if (!password.match(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)) {
+      setFormIsValid(false);
+      setErrorPassword("*Please enter secure and strong password.");
+    }
+    else{
+      setFormIsValid(true);
+      setErrorPassword('');
+    }
+
+    if(password !== checkPassword || checkPassword === ''){
+      setFormIsValid(false);
+      setErrorCheckPassword('*Password and confirm password not the same');
+    }
+    else{
+      setFormIsValid(true);
+      setErrorCheckPassword('');
+    }
+  }
 
   function getStepContent(step) {
     switch (step) {
       case 0:
         return ( 
           <div>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <TextField id="standard-secondary" label="First name" color="secondary" />  
-                <TextField id="standard-secondary" label="Last name" color="secondary" />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField id="standard-secondary" label="Email adress" color="secondary" />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField id="standard-secondary" label="Password" type="password" autoComplete="current-password"/>
-                <TextField id="standard-secondary" label="Confirm Password" type="password" autoComplete="current-password"/>
-              </Grid>
-              <Grid item xs={12}>
-              </Grid>
-            </Grid>
+                <TextField id="standard-secondary" label="User name" color="secondary" value={userName} onChange={e => setUserName(e.target.value)} />
+                <div className="errorMsg">{errorUserName}</div>
+                <TextField id="standard-secondary" label="Email adress" type="email" color="secondary" value={email} onChange={e => setEmail(e.target.value)} />
+                <div className="errorMsg">{errorEmail}</div>
+                <TextField id="standard-secondary" label="Password" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)}/>
+                <div className="errorMsg">{errorPassword}</div>
+                <TextField id="standard-secondary" label="Confirm Password" type="password" autoComplete="current-password" value={checkPassword} onChange={e => setCheckPassword(e.target.value)}/>
+                <div className="errorMsg">{errorCheckPassword}</div>
           </div>);
       case 1:
         return (
           <div>
-            <p>I agree to get letters on my email adress that are required to obtain registration procedure.</p>
-            <FormControlLabel value='1' control={<Checkbox color="primary" onClick={accessField} />} label="I grant permission to YOBA Application to store and use my personal data" labelPlacement="start"/>
+            <p>&#160;&#160; I agree to get letters on my email adress that are required to obtain registration procedure</p>
+            <FormControlLabel control={<Checkbox color="primary" onClick={accessField} checked={accessReg} />} label="I grant permission to YOBA Application to store and use my personal data" labelPlacement="start"/>
           </div>
         );
       case 2:
-        return `Try out different ad text to see what brings in the most customers,
-                and learn how to enhance your ads using features like ad extensions.
-                If you run into any problems with your ads, find out how to tell if
-                they're running and how to resolve approval issues.`;
+        return (
+          <div>
+            <p>{accessReg===false ? 'You did not access registration rules. Come back to previous step and accept registration policy' : 'Finish procedure and check your ' + email + ' email account for accept registration'}</p>
+          </div>
+        );
       default:
         return 'Unknown step';
     }
   }
   
-  const [activeStep, setActiveStep] = useState(0);
-  const [accessReg, setAccessReg] = useState(false);
-
-  const steps = getSteps();
-  const { classes } = props;
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = (e) => {
+    submituserRegistrationForm(e);
+    if (formIsValid){
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const mainPage = () => {
+    dispatch(RegistrationSwitcher())
   };
 
   const accessField = () => {
@@ -95,7 +169,7 @@ function RegistrationForm(props) {
                   <Button disabled={activeStep === 0} onClick={handleBack} className='button' >
                     Back
                   </Button>
-                  <Button variant="contained" color="primary" onClick={handleNext} className='button'>
+                  <Button className={classes.Next} type="submit" disabled={formIsValid === false || activeStep === 2 && accessReg === false} variant="contained" color="primary" onClick={handleNext} className='button'>
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>
                 </div>
@@ -106,9 +180,9 @@ function RegistrationForm(props) {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className='resetContainer'>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} className='button'>
-            Reset
+          <Typography>For finish registration accept url link on your email</Typography>
+          <Button variant="contained" color="primary" onClick={mainPage} className='button'>
+            Main Page
           </Button>
         </Paper>
       )}
@@ -123,8 +197,11 @@ const styles = theme => ({
     marginLeft: 80,
     height: 250,
     width: '80%'
+  },
+  Next: {
+    display: 'grid',
+    margitTop: 20
   }
 });
-
 
 export default compose(connect(state => ({Store: state})), withStyles(styles, { withTheme: true }))(RegistrationForm)
