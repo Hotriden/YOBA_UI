@@ -30,10 +30,11 @@ function RegistrationForm(props) {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
-  const [errorUserName, setErrorUserName] = useState('');
+  const [errorUserName, setErrorUserName] = useState(' ');
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorCheckPassword, setErrorCheckPassword] = useState('');
+  const [validForm, setValidForm] = useState(false);
 
   const steps = getSteps();
   const { classes } = props;
@@ -44,62 +45,71 @@ function RegistrationForm(props) {
       setErrorUserName('*Please enter alphabet characters only.');
     }
     else{
-      setErrorUserName('');
+      setErrorUserName();
     }
   
     if (email === '') {
       setErrorEmail('*Please enter your email.');
     }
     else{
-      setErrorEmail('');
+      setErrorEmail();
     }
-  
-    if (email !== 'undefined') {
-      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-      if (!pattern.test(email)) {
-        setErrorEmail('*Please enter valid email');
-      }
+
+    if (email === '') {
+      setErrorEmail('*Please enter your password.');
     }
     else{
-      setErrorEmail('');
+      setErrorEmail();
+    }
+  
+    if (!email.match(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)) {
+      setErrorEmail('*Please enter valid email');
+    }
+    else{
+      setErrorEmail();
     }
   
     if (password === '') {
       setErrorPassword('*Please enter your password.');
     }
     else{
-      setErrorPassword('');
+      setErrorPassword();
     }
   
     if (!password.match(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)) {
       setErrorPassword("*Please enter secure and strong password.");
     }
     else{
-      setErrorPassword('');
+      setErrorPassword();
     }
 
     if(password !== checkPassword || checkPassword === ''){
       setErrorCheckPassword('*Password and confirm password not the same');
     }
     else{
-      setErrorCheckPassword('');
+      setErrorCheckPassword();
     }
   }
 
   function checkErrors(){
-    if(!(errorUserName, errorEmail, errorPassword, errorCheckPassword)){
-      return true;
+    if([errorUserName, errorEmail, errorPassword, errorCheckPassword].every(n=>n === undefined)){
+      setValidForm(true);
     }
     else{
-      return false;
+      setValidForm(false);
     }
   }
 
   function handleNext (e) {
     e.preventDefault();
-    validateForm();
-    if (checkErrors()){
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    let promise = new Promise(function(resolve, reject)
+    { 
+      resolve(validateForm());
+    }); 
+    checkErrors();
+    if (validForm === true)
+    {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
