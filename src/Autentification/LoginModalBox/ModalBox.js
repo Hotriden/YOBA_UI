@@ -10,8 +10,11 @@ import './Animate.css';
 import './ModalBoxStyle.css';
 import { connect } from 'react-redux'; 
 import { useDispatch } from 'react-redux';
-import { RegistrationSwitcher } from '../../GlobalState/Actions/RegistrationSwitcher';
-import { LogInSwitcher } from '../../GlobalState/Actions/LogInSwitcher';
+import { RegistrationSwitchOn } from '../../GlobalState/Actions/RegistrationSwitcher';
+import { RegistrationSwitchOff } from '../../GlobalState/Actions/RegistrationSwitcher';
+import { LogInSwitchOn } from '../../GlobalState/Actions/LogInSwitcher';
+import { LogInSwitchOff } from '../../GlobalState/Actions/LogInSwitcher';
+import { RemindSwitchOn } from '../../GlobalState/Actions/RemindSwitcher';
 
 function ModalBox (props) {
     const dispatch = useDispatch();
@@ -19,7 +22,7 @@ function ModalBox (props) {
     const [password, setPassword] = useState('');
 
     const cleanBox = () => {
-        dispatch(LogInSwitcher());
+        dispatch(LogInSwitchOff());
         setEmail('');
         setPassword('');
     }
@@ -30,21 +33,29 @@ function ModalBox (props) {
         window.location.reload();
     }
 
+    const openRemidWindow = () => {
+        dispatch(RemindSwitchOn());
+        dispatch(RegistrationSwitchOff());
+        dispatch(LogInSwitchOff());
+    }
+
     return(
         <div >
             <Button
               variant="outlined"
               color="inherit"
+              className="button-signIn"
               endIcon={<ExitToAppIcon fontSize="large"></ExitToAppIcon>}
-              onClick={() => dispatch(LogInSwitcher())}
+              onClick={() => dispatch(LogInSwitchOn())}
             >
                 Sign In
             </Button>
             <Button
               variant="outlined"
+              className="button-signUp"
               color="inherit"
               endIcon={ <FaceIcon fontSize="large"/> }
-              onClick={() => dispatch(RegistrationSwitcher())}
+              onClick={() => dispatch(RegistrationSwitchOn())}
             >
                 Sign Up
             </Button>
@@ -82,7 +93,7 @@ function ModalBox (props) {
                             </Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button className='button-forg' variant="contained" color="primary">
+                            <Button className='button-forg' variant="contained" color="primary" onClick={() => openRemidWindow()}>
                                 Remind
                             </Button>
                         </Grid>
