@@ -14,13 +14,7 @@ function RemindPasswordForm(props) {
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [checkPassword, setCheckPassword] = useState('');
-  const [errorUserName, setErrorUserName] = useState(' ');
   const [errorEmail, setErrorEmail] = useState('');
-  const [errorPassword, setErrorPassword] = useState('');
-  const [errorCheckPassword, setErrorCheckPassword] = useState('');
 
   const { classes } = props;
 
@@ -28,14 +22,8 @@ function RemindPasswordForm(props) {
     <div className={classes.root}>
         <Typography>
           <div>
-              <TextField id="standard-secondary" label="User name" color="secondary" value={userName} onChange={e => setUserName(e.target.value)} />
-              <div className="errorMsg">{errorUserName}</div>
               <TextField id="standard-secondary" label="Email adress" type="email" color="secondary" value={email} onChange={e => setEmail(e.target.value)} />
               <div className="errorMsg">{errorEmail}</div>
-              <TextField id="standard-secondary" label="Password" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)}/>
-              <div className="errorMsg">{errorPassword}</div>
-              <TextField id="standard-secondary" label="Confirm Password" type="password" autoComplete="current-password" value={checkPassword} onChange={e => setCheckPassword(e.target.value)}/>
-              <div className="errorMsg">{errorCheckPassword}</div>
           </div>
         </Typography>
     </div>

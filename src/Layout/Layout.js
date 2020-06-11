@@ -11,16 +11,20 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/listItems';
+import { Button } from '@material-ui/core';
 import ModalBox from '../Autentification/LoginModalBox/ModalBox';
-import BodyComponent from './BodyComponent';
 import RegistrationForm from '../Autentification/LoginModalBox/RegistrationForm';
-import Cookies from 'universal-cookie';
 import LogOut from '../Autentification/LoginModalBox/LogOut';
+import BodyComponent from './BodyComponent';
+import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/listItems';
+import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useDispatch } from 'react-redux';
 import { SideBarSwitcher } from '../GlobalState/Actions/SideBarSwitcher';
+import { LogInSwitchOff } from '../GlobalState/Actions/LogInSwitcher';
+import { RegistrationSwitchOff } from '../GlobalState/Actions/RegistrationSwitcher';
+import { RemindSwitchOff } from '../GlobalState/Actions/RemindSwitcher';
 import RemindPasswordForm from '../Autentification/LoginModalBox/RemindPasswordForm';
 
 const cookies = new Cookies();
@@ -28,6 +32,24 @@ const cookies = new Cookies();
 function Layout(props){
   const { classes } = props;
   const dispatch = useDispatch();
+
+  function CheckMainWindow() {
+    if(props.Store.RegistrationWindow===true){
+      return <RegistrationForm/>
+    }
+    if(props.Store.RemindWindow===true){
+      return <RemindPasswordForm/>
+    }
+    else{
+      return props.children;
+    }
+  }
+
+  function MainPage(){
+    dispatch(LogInSwitchOff());
+    dispatch(RegistrationSwitchOff());
+    dispatch(RemindSwitchOff());
+  }
 
     return (
       <div className={classes.root}>
@@ -44,7 +66,7 @@ function Layout(props){
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              YOBA - Your own business application. Welcome -  {cookies.get('_user') ? cookies.get('_user') : 'Guest'}
+              <Button className={classes.link} onClick={MainPage}>YOBA</Button> - Your own business application. Welcome -  {cookies.get('_user') ? cookies.get('_user') : 'Guest'}
             </Typography>
             { }
             {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }
@@ -70,7 +92,7 @@ function Layout(props){
           <Divider />
           <List>{staffListItems}</List>
         </Drawer>
-        { props.Store.RegistrationWindow ? <RegistrationForm /> : <RemindPasswordForm/> }
+        { CheckMainWindow() }
       </div>
     );
   }
@@ -131,7 +153,15 @@ const styles = theme => ({
     width: theme.spacing(7),
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
-    },
+    }
+  },
+  link: {
+    background: 'none',
+    border: 'none',
+    fontSize: 24,
+    color: 'white',
+    marginTop: -1,
+    left: 8
   }
 });
 

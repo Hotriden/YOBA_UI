@@ -12,9 +12,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import SendRegistrationData from '../JWT/SendRegistrationData';
 import { useDispatch } from 'react-redux';
-import { RegistrationSwitcher } from '../../GlobalState/Actions/RegistrationSwitcher';
+import { RegistrationSwitchOn } from '../../GlobalState/Actions/RegistrationSwitcher';
 
 function getSteps() {
   return ['Input personal data', 'Create an ad group', 'Create an ad'];
@@ -33,108 +32,96 @@ function RegistrationForm(props) {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorCheckPassword, setErrorCheckPassword] = useState('');
+  const [validForm, setValidForm] = useState(false);
 
   const steps = getSteps();
   const { classes } = props;
   
   function validateForm() {
   
-    let errors = [];
+    let validate = false;
+    let fields = {};
+    let errors = {};
 
     if (userName === '' | !userName.match(/^[a-zA-Z ]*$/)) {
       setErrorUserName('*Please enter alphabet characters only.');
-      errors.push(false);
+      fields["username"] = "*Please enter alphabet characters only.";
     }
     else{
       setErrorUserName();
-      errors.push('');
+      fields["username"] = "";
     }
   
     if (email === '') {
       setErrorEmail('*Please enter your email.');
-      errors.push(false);
     }
     else{
       setErrorEmail();
-      errors.push('');
+      fields["email"] = "";
+
     }
 
     if (email === '') {
       setErrorEmail('*Please enter your password.');
-      errors.push(false);
     }
     else{
       setErrorEmail();
-      errors.push('');
+      fields["email"] = "";
     }
   
     if (!email.match(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)) {
       setErrorEmail('*Please enter valid email');
-      errors.push(false);
     }
     else{
       setErrorEmail();
-      errors.push('');
     }
   
     if (password === '') {
       setErrorPassword('*Please enter your password.');
-      errors.push(false);
     }
     else{
       setErrorPassword();
-      errors.push('');
     }
   
     if (!password.match(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)) {
       setErrorPassword("*Please enter secure and strong password.");
-      errors.push(false);
     }
     else{
       setErrorPassword();
-      errors.push('');
     }
 
     if(password !== checkPassword || checkPassword === ''){
       setErrorCheckPassword('*Password and confirm password not the same');
-      errors.push(false);
     }
     else{
       setErrorCheckPassword();
-      errors.push('');
     }
 
-    return errors;
-  }
-
-  function checkErrors(props){
-    if(props.every(n=>n === "")){
-      return true;
+    if([errorUserName, errorEmail, errorPassword, errorCheckPassword].every(n=>n === undefined)){
+      setValidForm(true);
     }
     else{
-      return false;
+      setValidForm(false);
     }
+
+    return validate;
   }
 
   function handleNext (e) {
     e.preventDefault();
-    let result = checkErrors(validateForm());
-    if (result === true)
+    let b = validateForm();
+    if (validForm === true)
     {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
-    if(accessReg===true)
-    {
-      SendRegistrationData({userName, email, password});
-    }
-  };
+  }
 
   function handleBack() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   function mainPage() {
-    dispatch(RegistrationSwitcher())
+    dispatch(RegistrationSwitchOn())
   };
 
   function accessField() {

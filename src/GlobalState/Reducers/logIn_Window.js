@@ -1,7 +1,9 @@
 export const logIn_Window = (state = false, action) => {
     switch(action.type){
         case 'LogInOn':
-            return !state;
+            return true;
+        case 'LogInOff':
+            return false;
         default:
             return state;
     }
