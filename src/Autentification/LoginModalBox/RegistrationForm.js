@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
@@ -34,82 +33,99 @@ function RegistrationForm(props) {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorCheckPassword, setErrorCheckPassword] = useState('');
-  const [validForm, setValidForm] = useState(false);
 
   const steps = getSteps();
   const { classes } = props;
   
   function validateForm() {
   
+    let errors = [];
+
     if (userName === '' | !userName.match(/^[a-zA-Z ]*$/)) {
       setErrorUserName('*Please enter alphabet characters only.');
+      errors.push(false);
     }
     else{
       setErrorUserName();
+      errors.push('');
     }
   
     if (email === '') {
       setErrorEmail('*Please enter your email.');
+      errors.push(false);
     }
     else{
       setErrorEmail();
+      errors.push('');
     }
 
     if (email === '') {
       setErrorEmail('*Please enter your password.');
+      errors.push(false);
     }
     else{
       setErrorEmail();
+      errors.push('');
     }
   
     if (!email.match(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)) {
       setErrorEmail('*Please enter valid email');
+      errors.push(false);
     }
     else{
       setErrorEmail();
+      errors.push('');
     }
   
     if (password === '') {
       setErrorPassword('*Please enter your password.');
+      errors.push(false);
     }
     else{
       setErrorPassword();
+      errors.push('');
     }
   
     if (!password.match(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)) {
       setErrorPassword("*Please enter secure and strong password.");
+      errors.push(false);
     }
     else{
       setErrorPassword();
+      errors.push('');
     }
 
     if(password !== checkPassword || checkPassword === ''){
       setErrorCheckPassword('*Password and confirm password not the same');
+      errors.push(false);
     }
     else{
       setErrorCheckPassword();
+      errors.push('');
     }
+
+    return errors;
   }
 
-  function checkErrors(){
-    if([errorUserName, errorEmail, errorPassword, errorCheckPassword].every(n=>n === undefined)){
-      setValidForm(true);
+  function checkErrors(props){
+    if(props.every(n=>n === "")){
+      return true;
     }
     else{
-      setValidForm(false);
+      return false;
     }
   }
 
   function handleNext (e) {
     e.preventDefault();
-    let promise = new Promise(function(resolve, reject)
-    { 
-      resolve(validateForm());
-    }); 
-    checkErrors();
-    if (validForm === true)
+    let result = checkErrors(validateForm());
+    if (result === true)
     {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+    if(accessReg===true)
+    {
+      SendRegistrationData({userName, email, password});
     }
   };
 
@@ -124,7 +140,6 @@ function RegistrationForm(props) {
   function accessField() {
     setAccessReg(!accessReg);
   }
-
 
   function getStepContent(step) {
     switch (step) {

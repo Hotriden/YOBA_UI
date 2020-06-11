@@ -1,6 +1,6 @@
-export const regAccess = (state = false, action) => {
+export const remind_Window = (state = false, action) => {
     switch(action.type){
-        case 'RegAcess':
+        case 'RemindOn':
             return !state;
         default:
             return state;

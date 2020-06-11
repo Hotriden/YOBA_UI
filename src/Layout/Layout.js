@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useDispatch } from 'react-redux';
 import { SideBarSwitcher } from '../GlobalState/Actions/SideBarSwitcher';
+import RemindPasswordForm from '../Autentification/LoginModalBox/RemindPasswordForm';
 
 const cookies = new Cookies();
 
@@ -69,7 +70,7 @@ function Layout(props){
           <Divider />
           <List>{staffListItems}</List>
         </Drawer>
-        { props.Store.RegistrationWindow ? <RegistrationForm /> : <BodyComponent/>}
+        { props.Store.RegistrationWindow ? <RegistrationForm /> : <RemindPasswordForm/> }
       </div>
     );
   }

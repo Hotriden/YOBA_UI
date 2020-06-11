@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { RegistrationSwitcher } from '../../GlobalState/Actions/RegistrationSwitcher';
 import { LogInSwitcher } from '../../GlobalState/Actions/LogInSwitcher';
+import { RemindSwitcher } from '../../GlobalState/Actions/RemindSwitcher';
 
 function ModalBox (props) {
     const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function ModalBox (props) {
             <Button
               variant="outlined"
               color="inherit"
+              className="button-signIn"
               endIcon={<ExitToAppIcon fontSize="large"></ExitToAppIcon>}
               onClick={() => dispatch(LogInSwitcher())}
             >
@@ -42,6 +44,7 @@ function ModalBox (props) {
             </Button>
             <Button
               variant="outlined"
+              className="button-signUp"
               color="inherit"
               endIcon={ <FaceIcon fontSize="large"/> }
               onClick={() => dispatch(RegistrationSwitcher())}
@@ -82,7 +85,7 @@ function ModalBox (props) {
                             </Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button className='button-forg' variant="contained" color="primary">
+                            <Button className='button-forg' variant="contained" color="primary" onClick={() => dispatch(RemindSwitcher())}>
                                 Remind
                             </Button>
                         </Grid>
