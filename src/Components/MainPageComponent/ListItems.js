@@ -15,60 +15,70 @@ import HouseIcon from '@material-ui/icons/House';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import SortIcon from '@material-ui/icons/Sort';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const ListItems = (
-  <BrowserRouter>
-    <Switch>
-    </Switch>
-  </BrowserRouter>
-);
+const style = {
+  textDecoration: 'none'
+}
 
 export const supplyListItems = (
-  <div>
-    <ListSubheader inset>Supply</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <HouseIcon />
-      </ListItemIcon>
-      <ListItemText primary="WareHouses" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LocalShippingIcon />
-      </ListItemIcon>
-      <ListItemText primary="Suppliers" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <SortIcon />
-      </ListItemIcon>
-      <ListItemText primary="Receipts" />
-    </ListItem>
-  </div>
-);
-
+    <div>
+      <ListSubheader inset>Supply</ListSubheader>
+      <Link style={style} to="/WareHouse">
+        <ListItem button>
+          <ListItemIcon>
+            <HouseIcon />
+          </ListItemIcon>
+          <ListItemText primary="WareHouse"  />
+        </ListItem>
+      </Link>
+      <Link style={style} to="/Supplier">
+      <ListItem button>
+        <ListItemIcon>
+          <LocalShippingIcon />
+        </ListItemIcon>
+        <ListItemText primary="Suppliers"  />
+      </ListItem>
+      </Link>
+      <Link style={style} to="/Receipt">
+      <ListItem button>
+        <ListItemIcon>
+          <SortIcon />
+        </ListItemIcon>
+        <ListItemText primary="Receipts" />
+      </ListItem>
+      </Link>
+    </div>
+  );
+  
 export const salesListItems = (
   <div>
     <ListSubheader inset>Sales</ListSubheader>
+    <Link style={style} to="/Order">
     <ListItem button>
       <ListItemIcon>
         <CallIcon />
       </ListItemIcon>
       <ListItemText primary="Orders" />
     </ListItem>
+    </Link>
+    <Link style={style} to="/Customer">
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Customers" />
     </ListItem>
+    </Link>
+    <Link style={style} to="/Shipment">
     <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Shipments" />
     </ListItem>
+    </Link>
   </div>
 );
 
@@ -119,3 +129,4 @@ export const staffListItems = (
     </ListItem>
   </div>
 );
+
