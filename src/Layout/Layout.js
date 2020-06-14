@@ -24,7 +24,7 @@ import { SideBarSwitcher } from '../GlobalState/Actions/SideBarSwitcher';
 import { LogInSwitchOff } from '../GlobalState/Actions/LogInSwitcher';
 import { RegistrationSwitchOff } from '../GlobalState/Actions/RegistrationSwitcher';
 import { RemindSwitchOff } from '../GlobalState/Actions/RemindSwitcher';
-import RemindPasswordForm from '../Autentification/LoginModalBox/RemindPasswordForm';
+import RecoverPasswordForm from '../Autentification/LoginModalBox/RecoverPasswordForm';
 import { Link } from 'react-router-dom';
 
 const cookies = new Cookies();
@@ -38,7 +38,7 @@ function Layout(props){
       return <RegistrationForm/>
     }
     if(props.Store.RemindWindow===true){
-      return <RemindPasswordForm/>
+      return <RecoverPasswordForm/>
     }
     else{
       return props.children;
@@ -84,13 +84,13 @@ function Layout(props){
             </IconButton>
           </div>
           <Divider />
-          <List>{supplyListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{supplyListItems}</List>
           <Divider />
-          <List>{salesListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{salesListItems}</List>
           <Divider />
-          <List>{financeListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{financeListItems}</List>
           <Divider />
-          <List>{staffListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{staffListItems}</List>
         </Drawer>
         { CheckMainWindow() }
       </div>

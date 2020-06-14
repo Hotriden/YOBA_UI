@@ -13,12 +13,15 @@ import Employee from './Components/EmployeeComponent/Employee';
 import Expence from './Components/ExpenceComponent/Expences';
 import Income from './Components/IncomeComponent/Incomes';
 import Order from './Components/OrderComponent/Orders';
-import Payment from './Components/PaymentComponent/Payments';
-import Position from './Components/PositionComponent/Positions';
+import Payments from './Components/PaymentComponent/Payments';
+import Positions from './Components/PositionComponent/Positions';
 import Receipt from './Components/ReceiptComponent/Receipts';
 import Shipment from './Components/ShipmentComponent/Shipments';
 import Supplier from './Components/SupplierComponent/Suppliers';
 import WareHouse from './Components/WareHouseComponent/WareHouses';
+import RegistrationForm from './Autentification/LoginModalBox/RegistrationForm';
+import RecoverForm from './Autentification/LoginModalBox/RecoverPasswordForm';
+import CreatePassword from './Autentification/LoginModalBox/CreatePassword';
 
 const store = createStore(allReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -33,7 +36,7 @@ ReactDOM.render(
           <Route path="/WareHouse">
             <WareHouse/>
           </Route>
-          <Route path="/Branches">
+          <Route path="/Branch">
             <Branches/>
           </Route>
           <Route path="/Customer">
@@ -52,10 +55,10 @@ ReactDOM.render(
             <Order/>
           </Route>
           <Route path="/Payment">
-            <Payment/>
+            <Payments/>
           </Route>
           <Route path="/Position">
-            <Position/>
+            <Positions/>
           </Route>
           <Route path="/Receipt">
             <Receipt/>
@@ -65,6 +68,15 @@ ReactDOM.render(
           </Route>
           <Route path="/Supplier">
             <Supplier/>
+          </Route>
+          <Route path="/Register">
+            <RegistrationForm/>
+          </Route>
+          <Route path="/Recover">
+            <RecoverForm/>
+          </Route>
+          <Route path="/CreatePassword/:id">
+            <CreatePassword/>
           </Route>
         </Layout>
       </Switch>

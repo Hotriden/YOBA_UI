@@ -15,11 +15,11 @@ import HouseIcon from '@material-ui/icons/House';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import SortIcon from '@material-ui/icons/Sort';
-import { BrowserRouter, Switch, Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const style = {
-  textDecoration: 'none'
+  textDecoration: 'none',
+  color: 'black',
 }
 
 export const supplyListItems = (
@@ -85,48 +85,60 @@ export const salesListItems = (
 export const financeListItems = (
   <div>
     <ListSubheader inset>Finances</ListSubheader>
+    <Link style={style} to="/Income">
     <ListItem button>
       <ListItemIcon>
         <AttachMoneyIcon />
       </ListItemIcon>
       <ListItemText primary="Incomes" />
     </ListItem>
+    </Link>
+    <Link style={style} to="/Expence">
     <ListItem button>
       <ListItemIcon>
         <MoneyOffIcon />
       </ListItemIcon>
       <ListItemText primary="Expences" />
     </ListItem>
+    </Link>
+    <Link style={style} to="/Payment">
     <ListItem button>
       <ListItemIcon>
         <MoneyIcon />
       </ListItemIcon>
       <ListItemText primary="Payments" />
     </ListItem>
+    </Link>
   </div>
 );
 
 export const staffListItems = (
   <div>
     <ListSubheader inset>Staff</ListSubheader>
+    <Link style={style} to="/Branch">
     <ListItem button>
       <ListItemIcon>
         <DeviceHubIcon />
       </ListItemIcon>
       <ListItemText primary="Branches" />
     </ListItem>
+    </Link>
+    <Link style={style} to="/Employee">
     <ListItem button>
       <ListItemIcon>
         <EmojiPeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Employees" />
     </ListItem>
+    </Link>
+    <Link style={style} to="/Position">
     <ListItem button>
       <ListItemIcon>
         <EventSeatIcon />
       </ListItemIcon>
       <ListItemText primary="Positions" />
     </ListItem>
+    </Link>
   </div>
 );
 
