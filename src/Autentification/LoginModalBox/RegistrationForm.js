@@ -12,8 +12,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { useDispatch } from 'react-redux';
-import { RegistrationSwitchOn } from '../../GlobalState/Actions/RegistrationSwitcher';
+import { Link } from 'react-router-dom';
+import SendRegistrationData from '../SendData';
 
 function getSteps() {
   return ['Input personal data', 'Create an ad group', 'Create an ad'];
@@ -21,7 +21,6 @@ function getSteps() {
 
 function RegistrationForm(props) {
 
-  const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
   const [accessReg, setAccessReg] = useState(false);
   const [email, setEmail] = useState('');
@@ -32,96 +31,89 @@ function RegistrationForm(props) {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorCheckPassword, setErrorCheckPassword] = useState('');
-  const [validForm, setValidForm] = useState(false);
 
   const steps = getSteps();
   const { classes } = props;
   
   function validateForm() {
-  
-    let validate = false;
-    let fields = {};
-    let errors = {};
+
+    let errors = [];
 
     if (userName === '' | !userName.match(/^[a-zA-Z ]*$/)) {
-      setErrorUserName('*Please enter alphabet characters only.');
-      fields["username"] = "*Please enter alphabet characters only.";
+      setErrorUserName('Please enter alphabet characters only.');
+      errors.push(false);
     }
     else{
       setErrorUserName();
-      fields["username"] = "";
-    }
-  
-    if (email === '') {
-      setErrorEmail('*Please enter your email.');
-    }
-    else{
-      setErrorEmail();
-      fields["email"] = "";
-
+      errors.push('');
     }
 
     if (email === '') {
-      setErrorEmail('*Please enter your password.');
+      setErrorEmail('Please enter your email.');
+      errors.push(false);
     }
     else{
       setErrorEmail();
-      fields["email"] = "";
+      errors.push('');
     }
-  
+
     if (!email.match(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)) {
-      setErrorEmail('*Please enter valid email');
+      setErrorEmail('Please enter valid email');
+      errors.push(false);
     }
     else{
       setErrorEmail();
+      errors.push('');
     }
-  
+
     if (password === '') {
-      setErrorPassword('*Please enter your password.');
+      setErrorPassword('Please enter your password.');
+      errors.push(false);
     }
     else{
       setErrorPassword();
+      errors.push('');
     }
-  
+
     if (!password.match(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)) {
-      setErrorPassword("*Please enter secure and strong password.");
+      setErrorPassword("Please enter secure and strong password.");
+      errors.push(false);
     }
     else{
       setErrorPassword();
+      errors.push('');
     }
 
     if(password !== checkPassword || checkPassword === ''){
-      setErrorCheckPassword('*Password and confirm password not the same');
+      setErrorCheckPassword('Password and confirm password not the same');
+      errors.push(false);
     }
     else{
       setErrorCheckPassword();
+      errors.push('');
     }
 
-    if([errorUserName, errorEmail, errorPassword, errorCheckPassword].every(n=>n === undefined)){
-      setValidForm(true);
+    if(errors.every(n=>n === "")){
+      return true;
     }
     else{
-      setValidForm(false);
+      return false;
     }
-
-    return validate;
   }
 
-  function handleNext (e) {
-    e.preventDefault();
-    let b = validateForm();
-    if (validForm === true)
+  function handleNext () {
+    if (validateForm())
     {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+    if(accessReg===true)
+    {
+      SendRegistrationData({userName, email, password});
     }
   }
 
   function handleBack() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  function mainPage() {
-    dispatch(RegistrationSwitchOn())
   };
 
   function accessField() {
@@ -134,13 +126,13 @@ function RegistrationForm(props) {
         return ( 
           <div>
             <TextField id="standard-secondary" label="User name" color="secondary" value={userName} onChange={e => setUserName(e.target.value)} />
-            <div className="errorMsg">{errorUserName}</div>
+            <div className={classes.error}>{errorUserName}</div>
             <TextField id="standard-secondary" label="Email adress" type="email" color="secondary" value={email} onChange={e => setEmail(e.target.value)} />
-            <div className="errorMsg">{errorEmail}</div>
+            <div className={classes.error}>{errorEmail}</div>
             <TextField id="standard-secondary" label="Password" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)}/>
-            <div className="errorMsg">{errorPassword}</div>
+            <div className={classes.error}>{errorPassword}</div>
             <TextField id="standard-secondary" label="Confirm Password" type="password" autoComplete="current-password" value={checkPassword} onChange={e => setCheckPassword(e.target.value)}/>
-            <div className="errorMsg">{errorCheckPassword}</div>
+            <div className={classes.error}>{errorCheckPassword}</div>
           </div>);
       case 1:
         return (
@@ -185,9 +177,11 @@ function RegistrationForm(props) {
       {activeStep === steps.length && (
         <Paper square elevation={0} className='resetContainer'>
           <Typography>For finish registration accept url link on your email</Typography>
-          <Button variant="contained" color="primary" onClick={mainPage} className='button'>
+          <Link className={classes.main} to="/">
+          <Button variant="contained" color="primary" className='button'>
             Main Page
           </Button>
+          </Link>
         </Paper>
       )}
     </div>
@@ -196,15 +190,21 @@ function RegistrationForm(props) {
 
 const styles = theme => ({
   root: {
-    display: 'grid',
     marginTop: 100,
     marginLeft: 80,
     height: 250,
-    width: '80%'
+    width: '50%'
   },
   Next: {
     display: 'grid',
     margitTop: 20
+  },
+  error: {
+    color: 'red'
+  },
+  main: {
+    textDecoration: 'none',
+    color: 'white'
   }
 });
 

@@ -3,7 +3,7 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
-import GetWareHouses from '../Hooks/GetWareHouses';
+import GetWareHouses from '../../Hooks/GetWareHouses';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function WareHouse() {
+export default function Deposits() {
   const classes = useStyles();
   return (
     <React.Fragment>

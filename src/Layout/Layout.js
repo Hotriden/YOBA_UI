@@ -15,8 +15,7 @@ import { Button } from '@material-ui/core';
 import ModalBox from '../Autentification/LoginModalBox/ModalBox';
 import RegistrationForm from '../Autentification/LoginModalBox/RegistrationForm';
 import LogOut from '../Autentification/LoginModalBox/LogOut';
-import BodyComponent from './BodyComponent';
-import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/listItems';
+import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/MainPageComponent/ListItems';
 import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -25,7 +24,8 @@ import { SideBarSwitcher } from '../GlobalState/Actions/SideBarSwitcher';
 import { LogInSwitchOff } from '../GlobalState/Actions/LogInSwitcher';
 import { RegistrationSwitchOff } from '../GlobalState/Actions/RegistrationSwitcher';
 import { RemindSwitchOff } from '../GlobalState/Actions/RemindSwitcher';
-import RemindPasswordForm from '../Autentification/LoginModalBox/RemindPasswordForm';
+import RecoverPasswordForm from '../Autentification/LoginModalBox/RecoverPasswordForm';
+import { Link } from 'react-router-dom';
 
 const cookies = new Cookies();
 
@@ -38,7 +38,7 @@ function Layout(props){
       return <RegistrationForm/>
     }
     if(props.Store.RemindWindow===true){
-      return <RemindPasswordForm/>
+      return <RecoverPasswordForm/>
     }
     else{
       return props.children;
@@ -66,7 +66,7 @@ function Layout(props){
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              <Button className={classes.link} onClick={MainPage}>YOBA</Button> - Your own business application. Welcome -  {cookies.get('_user') ? cookies.get('_user') : 'Guest'}
+              <Button className={classes.link} onClick={MainPage}><Link to="/" className={classes.link}>YOBA</Link></Button> - Your own business application. Welcome - {cookies.get('_user') ? cookies.get('_user') : 'Guest'}
             </Typography>
             { }
             {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }
@@ -84,13 +84,13 @@ function Layout(props){
             </IconButton>
           </div>
           <Divider />
-          <List>{supplyListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{supplyListItems}</List>
           <Divider />
-          <List>{salesListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{salesListItems}</List>
           <Divider />
-          <List>{financeListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{financeListItems}</List>
           <Divider />
-          <List>{staffListItems}</List>
+          <List onClick={() => dispatch(LogInSwitchOff())}>{staffListItems}</List>
         </Drawer>
         { CheckMainWindow() }
       </div>
@@ -161,7 +161,8 @@ const styles = theme => ({
     fontSize: 24,
     color: 'white',
     marginTop: -1,
-    left: 8
+    left: 8,
+    textDecoration: 'none'
   }
 });
 

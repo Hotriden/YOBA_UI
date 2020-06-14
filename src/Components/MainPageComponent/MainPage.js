@@ -8,7 +8,7 @@ import clsx from 'clsx';
 
 export default function MainPage() {
 
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 const classes = useStyles();
 const [open, setOpen] = React.useState(true);
 const handleDrawerOpen = () => {

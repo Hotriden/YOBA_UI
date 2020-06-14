@@ -9,6 +9,7 @@ function GetJwt(props) {
             password: props.password
         }).then(res => cookies.set('_uc', res.data)).then(res=>cookies.set('_user', props.email));
         return b;
+        console.log(b);
     }
   
   export default GetJwt;
