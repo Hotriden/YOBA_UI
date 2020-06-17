@@ -9,13 +9,17 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import SendData from '../SendData';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function RecoverPasswordForm(props) {
 
   const [email, setEmail] = useState('');
+  const [open, setOpen] = useState(false);
   const [errorEmail, setErrorEmail] = useState('');
   const [responseMsg, setResponseMsg] = useState('');
+  const [click, setClick] = useState(false);
   const { classes } = props;
 
   function validateForm() {
@@ -51,18 +55,33 @@ function RecoverPasswordForm(props) {
 
   async function sendEmail() {
     if(validateForm()){
-      var result = await axios.post('http://localhost:54889/api/recover', { Email: email});
-      setResponseMsg(result.data);
+      try{
+        setOpen(true);
+        var result = await axios.post('http://localhost:54889/api/recover', { Email: email});
+        setResponseMsg(result.data);
+        setClick(true);
+        setOpen(false);
+      }
+      catch(error){
+        setErrorEmail(error.message);
+        setOpen(false);
+      }
     }
   }
 
   return (
     <div className={classes.root}>
+      <Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Paper className={classes.mainWindow}>
         <Grid container spacing={1} className={classes.grid}>
+            {!click ?
             <Grid  item xs={12}>
                 <h2 className={classes.logbanner}>Input your email</h2>
             </Grid>
+            : null }
+            {!click ?
             <Grid  item xs={12}>
                 <TextField 
                     size='small'
@@ -73,23 +92,31 @@ function RecoverPasswordForm(props) {
                     onChange={e => setEmail(e.target.value)}
                 />
             </Grid>
+            : null }
             <Grid item xs={12}>
                 <h2 className={classes.errorMsg}>{errorEmail}</h2>
                 <h2 className={classes.responseMsg}>{responseMsg}</h2>
             </Grid>
             <Grid item xs={12}>
-                <Button className='button-log' variant="contained" color="primary" size="large" onClick={sendEmail}>
+              { !click ?
+                <Button className='button-log' disabled={!email} variant="contained" color="primary" size="large" onClick={sendEmail}>
                     Recover
                 </Button>
+                : 
+                <Link className={classes.main} to="/">
+                  <Button className='button-log' variant="contained" color="primary" size="large">
+                      Home
+                  </Button>
+                </Link>
+              }
             </Grid>
-
         </Grid>
         </Paper>
     </div>
   );
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   root: {
     display: 'grid',
     marginTop: 100,
@@ -127,6 +154,10 @@ const styles = () => ({
     paddingTop: 15,
     fontSize: 22,
     color:  '#3f51b5',
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   }
 });
 

@@ -6,8 +6,8 @@ function GetWareHouses() {
   const [wareHouses, setWarehouses] = useState([]);
 
   async function getWarehouses() {
-    const url = await fetch("http://apiyoba.pp.ua/api/warehouse", {mode: 'cors'});
-    const data = await url.json();
+    const url = await fetch("http://localhost:54889/api/warehouse", {mode: 'cors'});
+    const data = await url;
     console.log(data)
     setWarehouses(data);
   }

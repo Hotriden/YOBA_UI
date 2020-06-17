@@ -8,57 +8,46 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-import * as queryString from 'query-string';
+import Cookies from 'universal-cookie';
 
 function RecoverPasswordForm(props) {
 
-  const [email, setEmail] = useState('');
-  const [errorEmail, setErrorEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passErrors, setPassErrors] = useState('');
   const [responseMsg, setResponseMsg] = useState('');
   const { classes } = props;
+  var urlsearch = window.location.pathname;
+  const cookies = new Cookies();
+
 
   function validateForm() {
-  
-    let errors = [];
-  
-    if (email === '') {
-      setErrorEmail('Please enter your email.');
-      errors.push(false);
-    }
-    else{
-      setErrorEmail();
-      errors.push('');
-    }
 
-    if (!email.match(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)) {
-      setErrorEmail('Please enter valid email');
-      errors.push(false);
-    }
-    else{
-      setErrorEmail();
-      errors.push('');
-    }
-
-    if(errors.every(n=>n === "")){
-      setErrorEmail('');
-      return true;
-    }
-    else{
+    if (newPassword === '') {
+      setPassErrors('Please enter your password.');
       return false;
     }
+
+    if (!newPassword.match(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)) {
+      setPassErrors("Please enter secure and strong password.");
+      return false;
+    }
+
+    if(newPassword !== confirmPassword || confirmPassword === ''){
+      setPassErrors('Password and confirm password not the same');
+      return false;
+    }
+
+    return true;
   }
 
   async function sendEmail() {
+    var url = urlsearch.split("'");
     if(validateForm()){
-      var result = await axios.post('http://localhost:54889/api/recover', { Email: email});
+      var result = await axios.post('http://localhost:54889/api/ResetPassword', { Password: newPassword, Token: url[2], Email: url[1], ConfirmPassword: confirmPassword });
+      console.log(url[2], url);
       setResponseMsg(result.data);
     }
-  }
-
-  var urlsearch = window.location.pathname;
-
-  function CheckProps () {
-    console.log(urlsearch);
   }
 
   return (
@@ -66,28 +55,37 @@ function RecoverPasswordForm(props) {
       <Paper className={classes.mainWindow}>
         <Grid container spacing={1} className={classes.grid}>
             <Grid  item xs={12}>
-                <h2 className={classes.logbanner}>Input your email</h2>
+                <h2 className={classes.logbanner}>Input new password</h2>
             </Grid>
-            <Grid  item xs={12}>
+            <Grid  item xs={6}>
+                <TextField 
+                    size='small'
+                    className='field-log'
+                    label="Password" 
+                    variant="outlined" 
+                    value={newPassword}
+                    onChange={e => setNewPassword(e.target.value)}
+                />
+            </Grid>
+            <Grid  item xs={6}>
                 <TextField 
                     size='small'
                     className='field-log'
                     label="Email" 
                     variant="outlined" 
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
                 />
             </Grid>
             <Grid item xs={12}>
-                <h2 className={classes.errorMsg}>{errorEmail}</h2>
+                <h2 className={classes.errorMsg}>{passErrors}</h2>
                 <h2 className={classes.responseMsg}>{responseMsg}</h2>
             </Grid>
             <Grid item xs={12}>
-                <Button className='button-log' variant="contained" color="primary" size="large" onClick={CheckProps}>
+                <Button className='button-log' variant="contained" color="primary" size="large" onClick={sendEmail}>
                     Recover
                 </Button>
             </Grid>
-
         </Grid>
         </Paper>
     </div>

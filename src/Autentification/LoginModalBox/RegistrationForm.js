@@ -106,7 +106,7 @@ function RegistrationForm(props) {
     {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
-    if(accessReg===true)
+    if(accessReg===true && activeStep===2)
     {
       SendRegistrationData({userName, email, password});
     }
