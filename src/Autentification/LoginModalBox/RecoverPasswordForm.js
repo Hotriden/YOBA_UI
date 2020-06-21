@@ -3,19 +3,24 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Recover from '../Recover';
+import { useDispatch } from 'react-redux';
+import { LoadSwitchOn } from '../../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOff } from '../../GlobalState/Actions/LoadSwitcher';
+import { Recover } from '../SendData';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import SendData from '../SendData';
-import axios from 'axios';
-
+import { Link } from 'react-router-dom';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function RecoverPasswordForm(props) {
 
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [responseMsg, setResponseMsg] = useState('');
+  const [click, setClick] = useState(false);
+  const dispatch = useDispatch();
   const { classes } = props;
 
   function validateForm() {
@@ -51,45 +56,75 @@ function RecoverPasswordForm(props) {
 
   async function sendEmail() {
     if(validateForm()){
-      var result = await axios.post('http://localhost:54889/api/recover', { Email: email});
-      setResponseMsg(result.data);
+      try{
+        dispatch(LoadSwitchOn());
+        var result = await Recover({email});
+        setResponseMsg(result.data);
+        setClick(true);
+        dispatch(LoadSwitchOff());
+      }
+      catch(error){
+        setErrorEmail(error.message);
+        dispatch(LoadSwitchOff());
+      }
+    }
+  }
+
+  const keyBoard_enter=(event)=> {
+    if (event.keyCode === 13) {
+      sendEmail();
     }
   }
 
   return (
     <div className={classes.root}>
+      <Backdrop className={classes.backdrop} open={props.Store.LoadBar}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Paper className={classes.mainWindow}>
         <Grid container spacing={1} className={classes.grid}>
+            {!click ?
             <Grid  item xs={12}>
                 <h2 className={classes.logbanner}>Input your email</h2>
             </Grid>
+            : null }
+            {!click ?
             <Grid  item xs={12}>
                 <TextField 
                     size='small'
-                    className='field-log'
+                    className='field-recover'
                     label="Email" 
                     variant="outlined" 
                     value={email}
                     onChange={e => setEmail(e.target.value)}
+                    onKeyDown={keyBoard_enter}
                 />
             </Grid>
+            : null }
             <Grid item xs={12}>
                 <h2 className={classes.errorMsg}>{errorEmail}</h2>
                 <h2 className={classes.responseMsg}>{responseMsg}</h2>
             </Grid>
             <Grid item xs={12}>
-                <Button className='button-log' variant="contained" color="primary" size="large" onClick={sendEmail}>
+              { !click ?
+                <Button className='button-log' disabled={!email} variant="contained" color="primary" size="large" onClick={sendEmail}>
                     Recover
                 </Button>
+                : 
+                <Link to="/">
+                  <Button className='button-log' variant="contained" color="primary" size="large">
+                      Home
+                  </Button>
+                </Link>
+              }
             </Grid>
-
         </Grid>
         </Paper>
     </div>
   );
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   root: {
     display: 'grid',
     marginTop: 100,
@@ -127,6 +162,10 @@ const styles = () => ({
     paddingTop: 15,
     fontSize: 22,
     color:  '#3f51b5',
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   }
 });
 

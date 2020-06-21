@@ -21,7 +21,9 @@ function LogOut () {
               color="inherit"
               endIcon={<ExitToAppIcon fontSize="large"></ExitToAppIcon>}
               onClick={Out}
-            ></Button>
+            >
+                Log Out
+            </Button>
         </div>
         );
     }
