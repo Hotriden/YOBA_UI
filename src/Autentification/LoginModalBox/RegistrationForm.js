@@ -113,8 +113,13 @@ function RegistrationForm(props) {
       dispatch(LoadSwitchOff());
     }
   catch(error){
-    setErrorSend(error.response.data);
-    dispatch(LoadSwitchOff());
+    if(error.message==='Network Error'){
+      setErrorSend(error.message);
+  }
+  else{
+      setErrorSend('Registration failed. Try again.');
+  }
+  dispatch(LoadSwitchOff());
   }
 }
 
@@ -207,12 +212,12 @@ const keyBoard_enter=(event)=> {
                       Back
                     </Button>
                     {activeStep !== steps.length - 1 ?
-                      <Button className={classes.Next} type="submit" disabled={!(userName, email, password, checkPassword) || activeStep === 2 && accessReg === false} 
+                      <Button type="submit" disabled={!(userName, email, password, checkPassword) || activeStep === 2 && accessReg === false} 
                       variant="contained" color="primary" onClick={handleNext} className='button'>
                           Next
                       </Button>
                     :
-                    <Button className={classes.Next} type="submit" 
+                    <Button type="submit" 
                       variant="contained" color="primary" disabled={registrationResult} onClick={finish_reg} className='button'>
                         {errorSend ? 'Recover' : 'Finish'}
                     </Button>
@@ -220,7 +225,7 @@ const keyBoard_enter=(event)=> {
                     </div>
                     :
                     <Link className={classes.main} to="/">
-                      <Button className={classes.Next} type="submit" variant="contained" color="primary" className='button'>
+                      <Button type="submit" variant="contained" color="primary" className='button'>
                           Main menu
                       </Button>
                     </Link>

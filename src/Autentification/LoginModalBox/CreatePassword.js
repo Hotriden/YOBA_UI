@@ -6,7 +6,6 @@ import { compose } from 'redux';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Cookies from 'universal-cookie';
 import { CreatePassword } from '../SendData';
 import { useDispatch } from 'react-redux';
 import { LoadSwitchOn } from '../../GlobalState/Actions/LoadSwitcher';
@@ -24,7 +23,6 @@ function RecoverPasswordForm(props) {
   const { classes } = props;
   const dispatch = useDispatch();
   var urlsearch = window.location.pathname;
-  const cookies = new Cookies();
 
   function validateForm() {
 
@@ -174,7 +172,6 @@ const styles = theme => ({
     color:  '#3f51b5',
   },
   password: {
-    marginLeft: 'auto',
     marginLeft: 10,
     marginTop: 10
   },
