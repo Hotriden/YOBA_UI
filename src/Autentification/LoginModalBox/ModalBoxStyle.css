@@ -38,9 +38,16 @@
   right: 10px;
 }
 
+.field-recover {
+  top: 5px;
+  width: 200px;
+  height: 10px;
+  left: 10px;
+}
+
 .field-log {
   top: 5px;
-  width: 160px;
+  width: 150px;
   height: 10px;
   left: 10px;
 }

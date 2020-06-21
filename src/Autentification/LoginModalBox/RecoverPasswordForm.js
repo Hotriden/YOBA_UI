@@ -3,12 +3,13 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Recover from '../Recover';
+import { useDispatch } from 'react-redux';
+import { LoadSwitchOn } from '../../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOff } from '../../GlobalState/Actions/LoadSwitcher';
+import { Recover } from '../SendData';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import SendData from '../SendData';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -16,10 +17,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 function RecoverPasswordForm(props) {
 
   const [email, setEmail] = useState('');
-  const [open, setOpen] = useState(false);
   const [errorEmail, setErrorEmail] = useState('');
   const [responseMsg, setResponseMsg] = useState('');
   const [click, setClick] = useState(false);
+  const dispatch = useDispatch();
   const { classes } = props;
 
   function validateForm() {
@@ -56,22 +57,28 @@ function RecoverPasswordForm(props) {
   async function sendEmail() {
     if(validateForm()){
       try{
-        setOpen(true);
-        var result = await axios.post('http://localhost:54889/api/recover', { Email: email});
+        dispatch(LoadSwitchOn());
+        var result = await Recover({email});
         setResponseMsg(result.data);
         setClick(true);
-        setOpen(false);
+        dispatch(LoadSwitchOff());
       }
       catch(error){
         setErrorEmail(error.message);
-        setOpen(false);
+        dispatch(LoadSwitchOff());
       }
+    }
+  }
+
+  const keyBoard_enter=(event)=> {
+    if (event.keyCode === 13) {
+      sendEmail();
     }
   }
 
   return (
     <div className={classes.root}>
-      <Backdrop className={classes.backdrop} open={open}>
+      <Backdrop className={classes.backdrop} open={props.Store.LoadBar}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <Paper className={classes.mainWindow}>
@@ -85,11 +92,12 @@ function RecoverPasswordForm(props) {
             <Grid  item xs={12}>
                 <TextField 
                     size='small'
-                    className='field-log'
+                    className='field-recover'
                     label="Email" 
                     variant="outlined" 
                     value={email}
                     onChange={e => setEmail(e.target.value)}
+                    onKeyDown={keyBoard_enter}
                 />
             </Grid>
             : null }
@@ -103,7 +111,7 @@ function RecoverPasswordForm(props) {
                     Recover
                 </Button>
                 : 
-                <Link className={classes.main} to="/">
+                <Link to="/">
                   <Button className='button-log' variant="contained" color="primary" size="large">
                       Home
                   </Button>
