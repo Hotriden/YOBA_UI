@@ -15,6 +15,7 @@ import HouseIcon from '@material-ui/icons/House';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import SortIcon from '@material-ui/icons/Sort';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { Link } from 'react-router-dom';
 
 const style = {
@@ -79,6 +80,14 @@ export const salesListItems = (
       <ListItemText primary="Shipments" />
     </ListItem>
     </Link>
+    <Link style={style} to="/Deposit">
+      <ListItem button>
+        <ListItemIcon>
+          <CreditCardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Deposits" />
+      </ListItem>
+      </Link>
   </div>
 );
 

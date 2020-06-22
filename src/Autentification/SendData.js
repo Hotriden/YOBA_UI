@@ -22,7 +22,6 @@ export async function GetJwt(props) {
         password: props.password
     })
     .then(res => cookies.set('_uc', res.data))
-    .then(cookies.set('_user', props.email))
     return result;
 }
 

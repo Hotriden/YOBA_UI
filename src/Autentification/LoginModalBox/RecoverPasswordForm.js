@@ -92,7 +92,7 @@ function RecoverPasswordForm(props) {
             <Grid  item xs={12}>
                 <TextField 
                     size='small'
-                    className='field-recover'
+                    className={'field-recover'}
                     label="Email" 
                     variant="outlined" 
                     value={email}
@@ -107,7 +107,7 @@ function RecoverPasswordForm(props) {
             </Grid>
             <Grid item xs={12}>
               { !click ?
-                <Button className='button-log' disabled={!email} variant="contained" color="primary" size="large" onClick={sendEmail}>
+                <Button className={classes.button_log} disabled={!email} variant="contained" color="primary" size="large" onClick={sendEmail}>
                     Recover
                 </Button>
                 : 
@@ -129,8 +129,8 @@ const styles = (theme) => ({
     display: 'grid',
     marginTop: 100,
     marginLeft: 80,
-    height: 250,
-    width: '50%'
+    height: '100%',
+    width: '25%'
   },
   Next: {
     display: 'grid',
@@ -138,7 +138,7 @@ const styles = (theme) => ({
   },
   logbanner: {
     marginTop: 5,
-    marginLeft: 10,
+    marginLeft: 25,
     height: 10,
     color:  '#3f51b5',
     fontSize: 22,
@@ -166,6 +166,13 @@ const styles = (theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
+  },
+  button_log: {
+    height: 30,
+    width: 140,
+    marginBottom: 20,
+    marginLeft: 40,
+    marginTop: -20
   }
 });
 

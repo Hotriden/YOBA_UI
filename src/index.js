@@ -18,6 +18,7 @@ import Positions from './Components/PositionComponent/Positions';
 import Receipt from './Components/ReceiptComponent/Receipts';
 import Shipment from './Components/ShipmentComponent/Shipments';
 import Supplier from './Components/SupplierComponent/Suppliers';
+import Deposits from './Components/DepositComponent/Deposits';
 import WareHouse from './Components/WareHouseComponent/WareHouses';
 import RegistrationForm from './Autentification/LoginModalBox/RegistrationForm';
 import RecoverForm from './Autentification/LoginModalBox/RecoverPasswordForm';
@@ -74,6 +75,9 @@ ReactDOM.render(
           </Route>
           <Route path="/Recover">
             <RecoverForm/>
+          </Route>
+          <Route path="/Deposit">
+            <Deposits/>
           </Route>
           <Route path="/CreatePassword/:id">
             <CreatePassword/>

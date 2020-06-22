@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Title from '../../Components/MainPageComponent/Title';
+import Title from '../MainPageComponent/Title';
 import Grid from '@material-ui/core/Grid';
 import '../ComponentStyle.scss';
 
@@ -23,7 +23,7 @@ const rows = [
   createData(4, '15 Mar, 2019', 'WareHouse-4', 'WareHouse-11', '33000', '330', 223.03),
 ];
 
-export default function WareHouse() {
+export default function Deposits() {
   return (
     <div>
     <Grid container spacing={1}>

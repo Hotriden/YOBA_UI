@@ -20,8 +20,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 
-
-
 function ModalBox (props) {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
