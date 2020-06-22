@@ -7,8 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
+import { Link as LinkReact } from 'react-router-dom';
 
-// Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
@@ -27,7 +27,7 @@ function preventDefault(event) {
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
   },
 }));
 
@@ -59,9 +59,11 @@ export default function Orders() {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
-        </Link>
+        <LinkReact to='/Order'>
+          <Link color="primary" href="/Order">
+            See more orders
+          </Link>
+        </LinkReact>
       </div>
     </React.Fragment>
   );
