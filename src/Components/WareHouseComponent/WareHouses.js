@@ -27,6 +27,24 @@ export default function WareHouse() {
   return (
     <div>
     <Grid container spacing={1}>
+      <Grid item xs={12}>
+        <Paper className='mainWareHouse'>
+          <Title>New operation</Title>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>№</TableCell>
+                <TableCell>From</TableCell>
+                <TableCell>To</TableCell>
+                <TableCell>Article</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell align="right">Value</TableCell>
+              </TableRow>
+            </TableHead>
+          </Table>
+        </Paper>
+      </Grid>
       <Grid item xs={6}>
         <Paper className='mainWareHouse'>
           <Title>Recent operations</Title>
