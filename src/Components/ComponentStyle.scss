@@ -1,9 +1,28 @@
 $myColor: red;
 
+body {
+  overflow: hidden;
+}
+
 .mainWareHouse {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 25px;
   margin-right: 25px;
   height: 80%;
   padding: 15px;
+}
+
+.menuItem {
+  margin-top: 45px;
+}
+
+.materialTable {
+  height: 10%;
+  width: 95%;
+  margin-left: 25px;
+}
+
+.pagination {
+  position: absolute;
+  right: 0;
 }
