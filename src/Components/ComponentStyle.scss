@@ -1,7 +1,32 @@
-$myColor: red;
+$myColor:  #3f51b5;
+$btnWidth: 100px;
+
+.animated::-moz-focus-inner 
+{
+  border: 0;
+}
 
 body {
   overflow: hidden;
+}
+
+.buttonReport {
+  width: 100px;
+  left: 5px;
+}
+
+.buttonsPanel {
+  margin-top: 70px;
+  margin-left: 20px;
+  margin-bottom: -20px;
+}
+.buttonsPanel > button {
+  background-color: $myColor;
+  color: white;
+}
+
+.buttonsPanel > button:hover {
+  background-color: $myColor;
 }
 
 .mainWareHouse {
@@ -19,10 +44,16 @@ body {
 .materialTable {
   height: 10%;
   width: 95%;
-  margin-left: 25px;
+  margin: 20px;
 }
 
 .pagination {
   position: absolute;
   right: 0;
+}
+
+.infoTable{
+  margin-top: 15px;
+  margin-left: 20px;
+  width: 90%;
 }

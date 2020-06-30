@@ -53,8 +53,13 @@ export default function MainTable(props) {
             icons={tableIcons}
             options={{
               sorting: true,
-              search: true,
               selection: false,
+              search: false,
+              filtering: false,
+              grouping: false,
+              paging: false,
+              draggable: false,
+              pageSize: 3,
               headerStyle: {
                 zIndex: 0,
                 backgroundColor: '#3f51b5',
@@ -67,11 +72,11 @@ export default function MainTable(props) {
               { title: 'Date', field: 'date' },
               { title: 'Article', field: 'article' },
               { title: 'From', field: 'from' },
-              { title: 'To', field: 'shipTo' },
+              { title: 'To', field: 'to' },
               { title: 'Value', field: 'value'}
             ]}
-            data={props.dataArray.map((row)=> (
-            { number: row.number, article: row.article, date: row.date, from: row.from, shipTo: row.shipTo, value: row.value }
+            data={props.dataArray.slice(0,4).map((row)=> (
+            { number: row.number, article: row.article, date: row.dateTime, from: row.from, to: row.to, value: row.value }
             ))
           }
         />
