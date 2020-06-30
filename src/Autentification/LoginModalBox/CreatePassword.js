@@ -19,7 +19,7 @@ function RecoverPasswordForm(props) {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passErrors, setPassErrors] = useState('');
-  const [responseMsg, setResponseMsg] = useState('');
+  const [responseMsg, setResponseMsg] = useState();
   const { classes } = props;
   const dispatch = useDispatch();
   var urlsearch = window.location.pathname;
@@ -75,7 +75,7 @@ function RecoverPasswordForm(props) {
       </Backdrop>
       <Paper className={classes.mainWindow}>
         <Grid container spacing={1} className={classes.grid}>
-          {responseMsg ?
+          {!responseMsg ?
           <div>
             <Grid  item xs={12}>
                 <h2 className={classes.logbanner}>Create your new password</h2>
