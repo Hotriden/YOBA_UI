@@ -21,8 +21,13 @@ export async function GetJwt(props) {
         email: props.email,
         password: props.password
     })
-    .then(res => cookies.set('_uc', res.data))
+    .then(res => cookies.set('_uc', res.data));
     return result;
+}
+
+export async function GetUser() {
+    await axios.get('http://localhost:54889/api/Login/GetUser', {headers: { 'Authorization': 'Bearer ' + cookies.get('_uc')}}).
+    then(res => cookies.set('_user', res.data));
 }
 
 export async function Registration(props) {
