@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TextField from '@material-ui/core/TextField';
 import { GetJwt } from '../SendData';
+import { GetUser } from '../SendData';
 import './Animate.css';
 import './ModalBoxStyle.css';
 import { connect } from 'react-redux'; 
@@ -39,6 +40,7 @@ function ModalBox (props) {
             try{
                 dispatch(LoadSwitchOn());
                 var result = await GetJwt({email, password});
+                await GetUser();
                 setError(result.data);
                 dispatch(LoadSwitchOff());
                 if(result.data.status===200){

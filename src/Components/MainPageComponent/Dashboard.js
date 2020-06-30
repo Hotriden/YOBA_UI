@@ -106,19 +106,6 @@ export default function Dashboard() {
   );
 }
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Created by '}
-      <Link color="inherit" href="https://github.com/Hotriden/YOBA_UI/tree/master">
-        Rifter
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
