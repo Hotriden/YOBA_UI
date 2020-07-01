@@ -7,7 +7,8 @@ $btnWidth: 100px;
 }
 
 body {
-  overflow: hidden;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .buttonReport {
