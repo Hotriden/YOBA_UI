@@ -15,27 +15,26 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const tempDataOperations = [
-  {id: 0, number: '000021', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 1, number: '000022', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 2, number: '000023', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 3, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 4, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 5, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 6, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20}
+  {number: '000667', Customer: 'unnamed', Manager: 'Dirty John', Article: '000222', quantity: 20, value: 20.20},
+  {number: '000668', Customer: 'John B.', Manager: 'Stinky Billy', Article: '000231', quantity: 200, value: 320.00},
+  {number: '000669', Customer: 'Bill C.', Manager: 'Angry Dummy', Article: '012220', quantity: 440, value: 440.00},
+  {number: '000670', Customer: 'Obama B.', Manager: 'Fartzilla', Article: '999221', quantity: 50, value: 200.00},
+  {number: '000671', Customer: 'Tramp D.', Manager: 'Conny Pony', Article: '121222', quantity: 10, value: 11.20},
+  {number: '000672', Customer: 'Baiden J.', Manager: 'Dirty John', Article: '331222', quantity: 80, value: 8000.00},
+  {number: '000673', Customer: 'Monica C.', Manager: 'Dirty John', Article: '109222', quantity: 5, value: 3.50}
 ];
 
 const tempDataInfo = [
-  {id: 0, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 1, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 2, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 3, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 4, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 5, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 6, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20}
+  {name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
+  {name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
+  {name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
+  {name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
+  {name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
+  {name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
+  {name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20}
 ];
 
 const tempColumnsOperations = [
-  { title: 'Id', field: 'id'},
   { title: 'Number', field: 'number'},
   { title: 'Date Time', field: 'date' },
   { title: 'Ship From', field: 'from' },
@@ -45,7 +44,6 @@ const tempColumnsOperations = [
 ];
 
 const tempColumnsInfo = [
-  { title: 'Id', field: 'id'},
   { title: 'Name', field: 'name'},
   { title: 'Address', field: 'address' },
   { title: 'Quantity', field: 'quantity' },

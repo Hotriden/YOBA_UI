@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './ComponentStyle.scss';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
@@ -40,6 +40,9 @@ const tableIcons = {
 };
 
 export default function MainTable(props) {
+
+  const [data, setData] = useState(props.dataArray);
+
   return (
         <MaterialTable
           title={props.title}
@@ -55,14 +58,48 @@ export default function MainTable(props) {
               sorting: true,
               search: true,
               selection: false,
+              actionsColumnIndex: -1,
               headerStyle: {
                 zIndex: 0,
                 backgroundColor: '#3f51b5',
                 color: 'white',
+                tableLayout: 'fixed'
               }
             }}
             columns={props.columns}
-            data={props.dataArray}
+            data={data}
+            editable={{
+              onRowAdd: newData =>
+                new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    setData([...data, newData]);
+                    resolve();
+                  }, 1000)
+                }),
+              onRowUpdate: (newData, oldData) =>
+                new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    const dataUpdate = [...data];
+                    const index = oldData.tableData.id;
+                    dataUpdate[index] = newData;
+                    setData([...dataUpdate]);
+      
+                    resolve();
+                  }, 1000)
+                }),
+              onRowDelete: oldData =>
+                new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    const dataDelete = [...data];
+                    const index = oldData.tableData.id;
+                    dataDelete.splice(index, 1);
+                    setData([...dataDelete]);
+                    
+                    resolve()
+                  }, 1000)
+                })
+              }
+            }
         />
   );
-        }
+}

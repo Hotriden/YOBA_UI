@@ -72,12 +72,12 @@ export const salesListItems = (
       <ListItemText primary="Customers" />
     </ListItem>
     </Link>
-    <Link style={style} to="/Shipment">
+    <Link style={style} to="/Sales">
     <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Shipments" />
+      <ListItemText primary="Sales" />
     </ListItem>
     </Link>
     <Link style={style} to="/Deposit">

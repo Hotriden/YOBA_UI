@@ -15,27 +15,26 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const tempDataOperations = [
-  {id: 1, number: '000021', date: '16.03.20 12:00:01', from: 'WHM', to: 'WH1', quantity: 50, value: 300.20},
-  {id: 2, number: '000022', date: '16.03.20 14:02:33', from: 'WH2', to: 'WH10', quantity: 130, value: 3001.50},
-  {id: 3, number: '000023', date: '16.03.20 15:22:53', from: 'WHM', to: 'WH8', quantity: 11000, value: 90000.00},
-  {id: 4, number: '000024', date: '17.03.20 09:05:18', from: 'WH1', to: 'WH5', quantity: 1031, value: 403.31},
-  {id: 5, number: '000025', date: '18.03.20 10:40:02', from: 'WHM', to: 'WH8', quantity: 80, value: 640.00},
-  {id: 6, number: '000027', date: '18.03.20 12:03:11', from: 'WHM', to: 'WH8', quantity: 100, value: 1000.00},
-  {id: 7, number: '000028', date: '19.03.20 08:55:11', from: 'WH8', to: 'WH3', quantity: 700, value: 2100.00}
+  {number: '000021', date: '16.03.20 12:00:01', from: 'WHM', to: 'WH1', quantity: 50, value: 300.20},
+  {number: '000022', date: '16.03.20 14:02:33', from: 'WH2', to: 'WH10', quantity: 130, value: 3001.50},
+  {number: '000023', date: '16.03.20 15:22:53', from: 'WHM', to: 'WH8', quantity: 11000, value: 90000.00},
+  {number: '000024', date: '17.03.20 09:05:18', from: 'WH1', to: 'WH5', quantity: 1031, value: 403.31},
+  {number: '000025', date: '18.03.20 10:40:02', from: 'WHM', to: 'WH8', quantity: 80, value: 640.00},
+  {number: '000027', date: '18.03.20 12:03:11', from: 'WHM', to: 'WH8', quantity: 100, value: 1000.00},
+  {number: '000028', date: '19.03.20 08:55:11', from: 'WH8', to: 'WH3', quantity: 700, value: 2100.00}
 ];
 
 const tempDataWareHouseInfo = [
-  {id: 0, name: 'WHM', address: 'Washington st. 10', quantity: 100000, value: 320000.00},
-  {id: 1, name: 'WH1', address: 'Washington st. 8', quantity: 10, value: 30.20},
-  {id: 2, name: 'WH3', address: 'Washington st. 5', quantity: 235003, value: 602102.20},
-  {id: 3, name: 'WH5', address: 'Lingston st, 1', quantity: 2433, value: 88003.26},
-  {id: 4, name: 'WH6', address: 'Riverstone st, 23', quantity: 8889, value: 21221.98},
-  {id: 5, name: 'WH8', address: 'Washstreet st. 2', quantity: 77, value: 230.55},
-  {id: 6, name: 'WH10', address: 'Riverstrone st, 23', quantity: 9, value: 23.30}
+  {name: 'WHM', address: 'Washington st. 10', quantity: 100000, value: 320000.00},
+  {name: 'WH1', address: 'Washington st. 8', quantity: 10, value: 30.20},
+  {name: 'WH3', address: 'Washington st. 5', quantity: 235003, value: 602102.20},
+  {name: 'WH5', address: 'Lingston st, 1', quantity: 2433, value: 88003.26},
+  {name: 'WH6', address: 'Riverstone st, 23', quantity: 8889, value: 21221.98},
+  {name: 'WH8', address: 'Washstreet st. 2', quantity: 77, value: 230.55},
+  {name: 'WH10', address: 'Riverstrone st, 23', quantity: 9, value: 23.30}
 ];
 
 const tempColumnsOperations = [
-  { title: 'Id', field: 'id'},
   { title: 'Number', field: 'number'},
   { title: 'Date Time', field: 'date' },
   { title: 'Ship From', field: 'from' },
@@ -45,7 +44,6 @@ const tempColumnsOperations = [
 ];
 
 const tempColumnsWareHouseInfo = [
-  { title: 'Id', field: 'id'},
   { title: 'Name', field: 'name'},
   { title: 'Address', field: 'address' },
   { title: 'Quantity', field: 'quantity' },
@@ -127,17 +125,17 @@ async function setWareHouseData(){
           </Menu>
         </div>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item md={10} lg={12} xs={12}>
         <Paper className='materialTable'>
           <MainTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent operations'/>
         </Paper>
       </Grid>
-      <Grid item xs={6} >
+      <Grid item md={4} lg={6} xs={6}>
         <Paper className='infoTable'>
           <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent operations'/>
         </Paper>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item lg={6} xs={6}>
         <Paper className='infoTable'>
           <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataWareHouseInfo} columns={tempColumnsWareHouseInfo} title='WareHouse info'/>
         </Paper>

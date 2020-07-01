@@ -15,29 +15,28 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const tempDataOperations = [
-  {id: 0, number: '000021', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 1, number: '000022', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 2, number: '000023', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 3, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 4, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 5, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 6, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20}
+  {article: '001120', operationType: 'Transfer', from: 'WH3', to: 'WHM', quantity: 1000, value: 100.20},
+  {article: '031130', operationType: 'Sale', from: 'WH8', to: 'WHS', quantity: 2, value: 2.20},
+  {article: '000005', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 5, value: 50.50},
+  {article: '022252', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 1, value: 10.40},
+  {article: '003330', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 10, value: 0.40},
+  {article: '001110', operationType: 'Arrival', from: 'WHA', to: 'WH1', quantity: 1000, value: 3000.20},
+  {article: '033322', operationType: 'Transfer', from: 'WH1', to: 'WH4', quantity: 1000, value: 3000.20}
 ];
 
 const tempDataInfo = [
-  {id: 0, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 1, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 2, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 3, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 4, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 5, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 6, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20}
+  {article: '099920', mainSupplier: 'Riccardo Ro.', quantity: 500, value: 550.10},
+  {article: '011130', mainSupplier: 'Leonelly M.C.', quantity: 200, value: 250.00},
+  {article: '003443', mainSupplier: 'Bruno&Co', quantity: 800, value: 640.00},
+  {article: '022240', mainSupplier: 'LTD Steel Ind', quantity: 440, value: 440.00},
+  {article: '01224z', mainSupplier: 'Simpson J.B.', quantity: 20, value: 400.00},
+  {article: '03334a', mainSupplier: 'Simpson J.B.', quantity: 258, value: 8000.20},
+  {article: '000981', mainSupplier: 'LTD Steel Ind', quantity: 2020, value: 4002.20}
 ];
 
 const tempColumnsOperations = [
-  { title: 'Id', field: 'id'},
-  { title: 'Number', field: 'number'},
-  { title: 'Date Time', field: 'date' },
+  { title: 'Article', field: 'article'},
+  { title: 'Operation', field: 'operationType' },
   { title: 'Ship From', field: 'from' },
   { title: 'Ship To', field: 'to' },
   { title: 'Quantity', field: 'quantity'},
@@ -45,9 +44,8 @@ const tempColumnsOperations = [
 ];
 
 const tempColumnsInfo = [
-  { title: 'Id', field: 'id'},
-  { title: 'Name', field: 'name'},
-  { title: 'Address', field: 'address' },
+  { title: 'Article', field: 'article'},
+  { title: 'Main Supplier', field: 'mainSupplier' },
   { title: 'Quantity', field: 'quantity' },
   { title: 'Summary Value', field: 'value' }
 ];
