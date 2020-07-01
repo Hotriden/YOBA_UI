@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ComponentStyle.scss';
+import './ComponentStyle.scss';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
 import AddBox from '@material-ui/icons/AddBox';
@@ -53,32 +53,16 @@ export default function MainTable(props) {
             icons={tableIcons}
             options={{
               sorting: true,
+              search: true,
               selection: false,
-              search: false,
-              filtering: false,
-              grouping: false,
-              paging: false,
-              draggable: false,
-              pageSize: 3,
               headerStyle: {
                 zIndex: 0,
                 backgroundColor: '#3f51b5',
                 color: 'white',
               }
             }}
-          columns={
-            [
-              { title: 'Number', field: 'number'},
-              { title: 'Date', field: 'date' },
-              { title: 'Article', field: 'article' },
-              { title: 'From', field: 'from' },
-              { title: 'To', field: 'to' },
-              { title: 'Value', field: 'value'}
-            ]}
-            data={props.dataArray.slice(0,4).map((row)=> (
-            { number: row.number, article: row.article, date: row.dateTime, from: row.from, to: row.to, value: row.value }
-            ))
-          }
+            columns={props.columns}
+            data={props.dataArray}
         />
   );
         }
