@@ -52,7 +52,7 @@ const tempColumnsInfo = [
   { title: 'Summary Value', field: 'value' }
 ];
 
-function Shipments(props) {
+function Sales(props) {
 
 const [fetchData, setFetchData] = useState('');
 const [operation, setOperation] = useState('');
@@ -158,4 +158,4 @@ const styles = theme => ({
     }
 });
 
-export default compose(connect(state => ({Store: state})), withStyles(styles, { withTheme: true }))(Shipments);
+export default compose(connect(state => ({Store: state})), withStyles(styles, { withTheme: true }))(Sales);

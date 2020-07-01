@@ -16,7 +16,7 @@ import Order from './Components/OrderComponent/Orders';
 import Payments from './Components/PaymentComponent/Payments';
 import Positions from './Components/PositionComponent/Positions';
 import Receipt from './Components/ReceiptComponent/Receipts';
-import Shipment from './Components/ShipmentComponent/Shipments';
+import Sales from './Components/SaleComponent/Sales';
 import Supplier from './Components/SupplierComponent/Suppliers';
 import Deposits from './Components/DepositComponent/Deposits';
 import WareHouse from './Components/WareHouseComponent/WareHouses';
@@ -64,8 +64,8 @@ ReactDOM.render(
           <Route path="/Receipt">
             <Receipt/>
           </Route>
-          <Route path="/Shipment">
-            <Shipment/>
+          <Route path="/Sales">
+            <Sales/>
           </Route>
           <Route path="/Supplier">
             <Supplier/>
