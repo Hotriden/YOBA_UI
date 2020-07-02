@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './ComponentStyle.scss';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
@@ -42,6 +42,9 @@ const tableIcons = {
 };
 
 export default function OperationsTable(props) {
+
+  const [data, setData] = useState(props.dataArray);
+
   return (
     <div>
         <MaterialTable
@@ -70,8 +73,7 @@ export default function OperationsTable(props) {
               }
             }}
           columns={props.columns}
-          data={props.dataArray.slice(0,4)
-          }
+          data={data.slice(0,4)}
         />
         <LinkReact to='/Order'>
           <Link color="primary" href={props.linkOnTable}>
