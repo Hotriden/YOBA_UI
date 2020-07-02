@@ -28,6 +28,7 @@ export async function GetJwt(props) {
 export async function GetUser() {
     await axios.get('http://apiyoba.pp.ua/api/Login/GetUser', {headers: { 'Authorization': 'Bearer ' + cookies.get('_uc')}})
     .then(res => cookies.set('_user', res.data));
+    window.location.reload();
 }
 
 export async function Registration(props) {
