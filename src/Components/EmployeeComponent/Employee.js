@@ -15,41 +15,39 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const tempDataOperations = [
-  {id: 0, number: '000021', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 1, number: '000022', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 2, number: '000023', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 3, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 4, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 5, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 6, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20}
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'}
 ];
 
 const tempDataInfo = [
-  {id: 0, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 1, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 2, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 3, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 4, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 5, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 6, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20}
+  { not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  { not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'},
+  {not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented', not_implemented: 'data not implemented'}
 ];
 
 const tempColumnsOperations = [
-  { title: 'Id', field: 'id'},
-  { title: 'Number', field: 'number'},
-  { title: 'Date Time', field: 'date' },
-  { title: 'Ship From', field: 'from' },
-  { title: 'Ship To', field: 'to' },
-  { title: 'Quantity', field: 'quantity'},
-  { title: 'Value', field: 'value'}
+  { title: 'Not implemented', field: 'not_implemented'},
+  { title: 'Not implemented', field: 'not_implemented'},
+  { title: 'Not implemented', field: 'not_implemented'},
+  { title: 'Not implemented', field: 'not_implemented'},
+  { title: 'Not implemented', field: 'not_implemented'},
+
 ];
 
 const tempColumnsInfo = [
-  { title: 'Id', field: 'id'},
-  { title: 'Name', field: 'name'},
-  { title: 'Address', field: 'address' },
-  { title: 'Quantity', field: 'quantity' },
-  { title: 'Summary Value', field: 'value' }
+  { title: 'Not implemented', field: 'not_implemented'},
+  { title: 'Not implemented', field: 'not_implemented'},
+  { title: 'Not implemented', field: 'not_implemented'},
+  { title: 'Not implemented', field: 'not_implemented'},
 ];
 
 function Employee(props) {
@@ -103,9 +101,8 @@ async function setSuppliers(){
             open={Boolean(operation)}
             onClose={handleCloseOperation}
           >
-            <MenuItem onClick={handleCloseReport}>New Supplier</MenuItem>
-            <MenuItem onClick={handleCloseOperation}>New Order</MenuItem>
-            <MenuItem onClick={handleCloseOperation}>New Bill</MenuItem>
+            <MenuItem onClick={handleCloseReport}>New Employee</MenuItem>
+            <MenuItem onClick={handleCloseOperation}>Salary bill</MenuItem>
           </Menu>
           <Button
               variant="outlined"
@@ -125,9 +122,8 @@ async function setSuppliers(){
             open={Boolean(report)}
             onClose={handleCloseReport}
           >
-            <MenuItem onClick={handleCloseReport}>Suppliers</MenuItem>
-            <MenuItem onClick={handleCloseReport}>Orders</MenuItem>
-            <MenuItem onClick={handleCloseReport}>Bills</MenuItem>
+            <MenuItem onClick={handleCloseReport}>Employee</MenuItem>
+            <MenuItem onClick={handleCloseReport}>Salary expences</MenuItem>
           </Menu>
         </div>
       </Grid>

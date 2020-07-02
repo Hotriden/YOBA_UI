@@ -15,20 +15,20 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const tempDataOperations = [
-  {number: '000667', date: '16.06.20', Customer: 'unnamed', Manager: 'Dirty John', Article: '000222', quantity: 20, value: 20.20},
-  {number: '000668', date: '16.06.20', Customer: 'John B.', Manager: 'Stinky Billy', Article: '000231', quantity: 200, value: 320.00},
-  {number: '000669', date: '16.06.20', Customer: 'Bill C.', Manager: 'Angry Dummy', Article: '012220', quantity: 440, value: 440.00},
-  {number: '000670', date: '17.06.20', Customer: 'Obama B.', Manager: 'Fartzilla', Article: '999221', quantity: 50, value: 200.00},
-  {number: '000671', date: '18.06.20', Customer: 'Tramp D.', Manager: 'Conny Pony', Article: '121222', quantity: 10, value: 11.20},
-  {number: '000672', date: '29.06.20', Customer: 'Baiden J.', Manager: 'Dirty John', Article: '331222', quantity: 80, value: 8000.00},
-  {number: '000673', date: '30.06.20', Customer: 'Monica C.', Manager: 'Dirty John', Article: '109222', quantity: 5, value: 3.50}
+  {number: '000667', date: '16.06.20', Customer: 'unnamed', Manager: 'Dirty John', Article: '000222', quantity: 20, value: '$20.20'},
+  {number: '000668', date: '16.06.20', Customer: 'John B.', Manager: 'Stinky Billy', Article: '000231', quantity: 200, value: '$320.00'},
+  {number: '000669', date: '16.06.20', Customer: 'Bill C.', Manager: 'Angry Dummy', Article: '012220', quantity: 440, value: '$440.00'},
+  {number: '000670', date: '17.06.20', Customer: 'Obama B.', Manager: 'Fartzilla', Article: '999221', quantity: 50, value: '$200.00'},
+  {number: '000671', date: '18.06.20', Customer: 'Tramp D.', Manager: 'Conny Pony', Article: '121222', quantity: 10, value: '$11.20'},
+  {number: '000672', date: '29.06.20', Customer: 'Baiden J.', Manager: 'Dirty John', Article: '331222', quantity: 80, value: '$8000.00'},
+  {number: '000673', date: '30.06.20', Customer: 'Monica C.', Manager: 'Dirty John', Article: '109222', quantity: 5, value: '$3.50'}
 ];
 
 const tempDataInfo = [
-  {Manager: 'Fartzilla', summaryOrders: 20043.23, successPersent: 80.2},
-  {Manager: 'Conny Pony', summaryOrders: 10002.90, successPersent: 90.2},
-  {Manager: 'Dirty John', summaryOrders: 9200.0, successPersent: 65.5},
-  {Manager: 'Stinky Billy', summaryOrders: 100.90, successPersent: 100.00}
+  {Manager: 'Fartzilla', summaryOrders: '$20043.23', successPersent: '80.2%'},
+  {Manager: 'Conny Pony', summaryOrders: '$10002.90', successPersent: '90.2%'},
+  {Manager: 'Dirty John', summaryOrders: '$9200.00', successPersent: '65.5%'},
+  {Manager: 'Stinky Billy', summaryOrders: '$100.90', successPersent: '100.00%'}
 ];
 
 const tempColumnsOperations = [
@@ -98,8 +98,8 @@ async function setSuppliers(){
             open={Boolean(operation)}
             onClose={handleCloseOperation}
           >
-            <MenuItem onClick={handleCloseReport}>New Supplier</MenuItem>
-            <MenuItem onClick={handleCloseOperation}>New Order</MenuItem>
+            <MenuItem onClick={handleCloseReport}>New Order</MenuItem>
+            <MenuItem onClick={handleCloseOperation}>New Sale</MenuItem>
             <MenuItem onClick={handleCloseOperation}>New Bill</MenuItem>
           </Menu>
           <Button
@@ -120,25 +120,25 @@ async function setSuppliers(){
             open={Boolean(report)}
             onClose={handleCloseReport}
           >
-            <MenuItem onClick={handleCloseReport}>Suppliers</MenuItem>
             <MenuItem onClick={handleCloseReport}>Orders</MenuItem>
+            <MenuItem onClick={handleCloseReport}>Sales</MenuItem>
             <MenuItem onClick={handleCloseReport}>Bills</MenuItem>
           </Menu>
         </div>
       </Grid>
       <Grid item xs={12}>
         <Paper className='materialTable'>
-          <MainTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent operations'/>
+          <MainTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent orders'/>
         </Paper>
       </Grid>
       <Grid item xs={6} >
         <Paper className='infoTable'>
-          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent operations'/>
+          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent orders'/>
         </Paper>
       </Grid>
       <Grid item xs={6}>
         <Paper className='infoTable'>
-          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataInfo} columns={tempColumnsInfo} title='Supplier info'/>
+          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataInfo} columns={tempColumnsInfo} title='Orders info'/>
         </Paper>
       </Grid>
     </Grid>

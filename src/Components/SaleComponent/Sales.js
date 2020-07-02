@@ -15,41 +15,36 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const tempDataOperations = [
-  {id: 0, number: '000021', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 1, number: '000022', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 2, number: '000023', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 3, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 4, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 5, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20},
-  {id: 6, number: '000024', date: '16.03.20', from: 'WH3', to: 'WH1', quantity: 1000, value: 3000.20}
+  { number: '001030', date: '16.06.20', Customer: 'unnamed', Manager: 'Dirty John', value: '$20.20', paid: true},
+  { number: '001031', date: '16.06.20', Customer: 'John B.', Manager: 'Stinky Billy', value: '$320.00', paid: true},
+  { number: '001032', date: '16.06.20', Customer: 'Bill C.', Manager: 'Angry Dummy', value: '$440.00', paid: false},
+  { number: '001033', date: '17.06.20', Customer: 'Obama B.', Manager: 'Fartzilla', value: '$200.00', paid: true},
+  { number: '001034', date: '18.06.20', Customer: 'Tramp D.', Manager: 'Conny Pony', value: '$11.20', paid: true},
+  { number: '001035', date: '29.06.20', Customer: 'Baiden J.', Manager: 'Dirty John', value: '$8000.00', paid: false},
+  { number: '001036', date: '30.06.20', Customer: 'Monica C.', Manager: 'Dirty John', value: '$3.50', paid: true}
 ];
 
 const tempDataInfo = [
-  {id: 0, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 1, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 2, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 3, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 4, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 5, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20},
-  {id: 6, name: 'LTD John Wayne', address: 'Washington st. 10', quantity: 1000, value: 3000.20}
+  { number: '001030', Customer: 'John B', summarySale: '$20043.23', successPersent: '99.5%'},
+  { number: '001031', Customer: 'Bill C', summarySale: '$10002.90', successPersent: '89.3%'},
+  { number: '001032', Customer: 'Obama B.', summarySale: '$9200.00', successPersent: '0.00%'},
+  { number: '001033', Customer: 'Monica C.', summarySale: '$100.90', successPersent: '100.00%'}
 ];
 
 const tempColumnsOperations = [
-  { title: 'Id', field: 'id'},
   { title: 'Number', field: 'number'},
   { title: 'Date Time', field: 'date' },
-  { title: 'Ship From', field: 'from' },
-  { title: 'Ship To', field: 'to' },
-  { title: 'Quantity', field: 'quantity'},
-  { title: 'Value', field: 'value'}
+  { title: 'Customer', field: 'Customer' },
+  { title: 'Manager', field: 'Manager' },
+  { title: 'Value', field: 'value'},
+  { title: 'Paid', field: 'paid'}
 ];
 
 const tempColumnsInfo = [
-  { title: 'Id', field: 'id'},
-  { title: 'Name', field: 'name'},
-  { title: 'Address', field: 'address' },
-  { title: 'Quantity', field: 'quantity' },
-  { title: 'Summary Value', field: 'value' }
+  { title: 'Number', field: 'number'},
+  { title: 'Customer', field: 'Customer'},
+  { title: 'Summary Sale', field: 'summarySale' },
+  { title: 'Sales', field: 'successPersent' }
 ];
 
 function Sales(props) {
@@ -103,7 +98,7 @@ async function setSuppliers(){
             open={Boolean(operation)}
             onClose={handleCloseOperation}
           >
-            <MenuItem onClick={handleCloseReport}>New Supplier</MenuItem>
+            <MenuItem onClick={handleCloseReport}>New Sale</MenuItem>
             <MenuItem onClick={handleCloseOperation}>New Order</MenuItem>
             <MenuItem onClick={handleCloseOperation}>New Bill</MenuItem>
           </Menu>
@@ -125,7 +120,7 @@ async function setSuppliers(){
             open={Boolean(report)}
             onClose={handleCloseReport}
           >
-            <MenuItem onClick={handleCloseReport}>Suppliers</MenuItem>
+            <MenuItem onClick={handleCloseReport}>Sales</MenuItem>
             <MenuItem onClick={handleCloseReport}>Orders</MenuItem>
             <MenuItem onClick={handleCloseReport}>Bills</MenuItem>
           </Menu>

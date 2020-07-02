@@ -12,12 +12,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useDispatch } from 'react-redux';
-import { LoadSwitchOn } from '../../GlobalState/Actions/LoadSwitcher';
-import { LoadSwitchOff } from '../../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOn } from '../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOff } from '../GlobalState/Actions/LoadSwitcher';
 import { Link } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Registration } from '../SendData';
+import { Registration } from './SendData';
 
 function getSteps() {
   return ['Input personal data', 'Create an ad group', 'Create an ad'];
