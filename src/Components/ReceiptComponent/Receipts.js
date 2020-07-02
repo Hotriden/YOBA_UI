@@ -15,23 +15,23 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const tempDataOperations = [
-  {article: '001120', operationType: 'Transfer', from: 'WH3', to: 'WHM', quantity: 1000, value: 100.20},
-  {article: '031130', operationType: 'Sale', from: 'WH8', to: 'WHS', quantity: 2, value: 2.20},
-  {article: '000005', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 5, value: 50.50},
-  {article: '022252', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 1, value: 10.40},
-  {article: '003330', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 10, value: 0.40},
-  {article: '001110', operationType: 'Arrival', from: 'WHA', to: 'WH1', quantity: 1000, value: 3000.20},
-  {article: '033322', operationType: 'Transfer', from: 'WH1', to: 'WH4', quantity: 1000, value: 3000.20}
+  {article: '001120', operationType: 'Transfer', from: 'WH3', to: 'WHM', quantity: 1000, value: '$100.20'},
+  {article: '031130', operationType: 'Sale', from: 'WH8', to: 'WHS', quantity: 2, value: '$2.20'},
+  {article: '000005', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 5, value: '$50.50'},
+  {article: '022252', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 1, value: '$10.40'},
+  {article: '003330', operationType: 'Sale', from: 'WH3', to: 'WHS', quantity: 10, value: '$0.40'},
+  {article: '001110', operationType: 'Arrival', from: 'WHA', to: 'WH1', quantity: 1000, value: '$3000.20'},
+  {article: '033322', operationType: 'Transfer', from: 'WH1', to: 'WH4', quantity: 1000, value: '$320.44'}
 ];
 
 const tempDataInfo = [
-  {article: '099920', mainSupplier: 'Riccardo Ro.', quantity: 500, value: 550.10},
-  {article: '011130', mainSupplier: 'Leonelly M.C.', quantity: 200, value: 250.00},
-  {article: '003443', mainSupplier: 'Bruno&Co', quantity: 800, value: 640.00},
-  {article: '022240', mainSupplier: 'LTD Steel Ind', quantity: 440, value: 440.00},
-  {article: '01224z', mainSupplier: 'Simpson J.B.', quantity: 20, value: 400.00},
-  {article: '03334a', mainSupplier: 'Simpson J.B.', quantity: 258, value: 8000.20},
-  {article: '000981', mainSupplier: 'LTD Steel Ind', quantity: 2020, value: 4002.20}
+  {article: '099920', mainSupplier: 'Riccardo Ro.', quantity: 500, value: '$550.10'},
+  {article: '011130', mainSupplier: 'Leonelly M.C.', quantity: 200, value: '$250.00'},
+  {article: '003443', mainSupplier: 'Bruno&Co', quantity: 800, value: '$640.00'},
+  {article: '022240', mainSupplier: 'LTD Steel Ind', quantity: 440, value: '$440.00'},
+  {article: '01224z', mainSupplier: 'Simpson J.B.', quantity: 20, value: '$400.00'},
+  {article: '03334a', mainSupplier: 'Simpson J.B.', quantity: 258, value: '$8000.20'},
+  {article: '000981', mainSupplier: 'LTD Steel Ind', quantity: 2020, value: '$4002.20'}
 ];
 
 const tempColumnsOperations = [
@@ -101,9 +101,9 @@ async function setSuppliers(){
             open={Boolean(operation)}
             onClose={handleCloseOperation}
           >
-            <MenuItem onClick={handleCloseReport}>New Supplier</MenuItem>
-            <MenuItem onClick={handleCloseOperation}>New Order</MenuItem>
-            <MenuItem onClick={handleCloseOperation}>New Bill</MenuItem>
+            <MenuItem onClick={handleCloseReport}>New Receipt</MenuItem>
+            <MenuItem onClick={handleCloseOperation}>New Transfer</MenuItem>
+            <MenuItem onClick={handleCloseOperation}>New Arrive</MenuItem>
           </Menu>
           <Button
               variant="outlined"
@@ -123,25 +123,25 @@ async function setSuppliers(){
             open={Boolean(report)}
             onClose={handleCloseReport}
           >
-            <MenuItem onClick={handleCloseReport}>Suppliers</MenuItem>
-            <MenuItem onClick={handleCloseReport}>Orders</MenuItem>
-            <MenuItem onClick={handleCloseReport}>Bills</MenuItem>
+            <MenuItem onClick={handleCloseReport}>Receipts</MenuItem>
+            <MenuItem onClick={handleCloseReport}>Transfers</MenuItem>
+            <MenuItem onClick={handleCloseReport}>Arrives</MenuItem>
           </Menu>
         </div>
       </Grid>
       <Grid item xs={12}>
         <Paper className='materialTable'>
-          <MainTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent operations'/>
+          <MainTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Receipts recent operations'/>
         </Paper>
       </Grid>
       <Grid item xs={6} >
         <Paper className='infoTable'>
-          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Recent operations'/>
+          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Receipts recent operations'/>
         </Paper>
       </Grid>
       <Grid item xs={6}>
         <Paper className='infoTable'>
-          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataInfo} columns={tempColumnsInfo} title='Supplier info'/>
+          <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataInfo} columns={tempColumnsInfo} title='Receipts info'/>
         </Paper>
       </Grid>
     </Grid>

@@ -1,0 +1,21 @@
+.content {
+    flex-grow: 1;
+    height: 100vh;
+    overflow: auto;
+}
+
+.container {
+    padding-top: 30px;
+}
+
+.paper {
+    padding: 15px;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    height: 340px;
+}
+
+.appBarSpacer {
+    margin-top: 70px
+}

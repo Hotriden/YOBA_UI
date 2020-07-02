@@ -18,6 +18,8 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { MTablePagination } from 'material-table';
+import Link from '@material-ui/core/Link';
+import { Link as LinkReact } from 'react-router-dom';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -41,6 +43,7 @@ const tableIcons = {
 
 export default function OperationsTable(props) {
   return (
+    <div>
         <MaterialTable
           title={props.title}
           components={{
@@ -70,5 +73,11 @@ export default function OperationsTable(props) {
           data={props.dataArray.slice(0,4)
           }
         />
+        <LinkReact to='/Order'>
+          <Link color="primary" href={props.linkOnTable}>
+            {props.linkTableName}
+          </Link>
+      </LinkReact>
+      </div>
   );
 }

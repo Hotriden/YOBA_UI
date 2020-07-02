@@ -20,9 +20,9 @@ import Sales from './Components/SaleComponent/Sales';
 import Supplier from './Components/SupplierComponent/Suppliers';
 import Deposits from './Components/DepositComponent/Deposits';
 import WareHouse from './Components/WareHouseComponent/WareHouses';
-import RegistrationForm from './Autentification/LoginModalBox/RegistrationForm';
-import RecoverForm from './Autentification/LoginModalBox/RecoverPasswordForm';
-import CreatePassword from './Autentification/LoginModalBox/CreatePassword';
+import RegistrationForm from './Autentification/RegistrationForm';
+import RecoverForm from './Autentification/RecoverPasswordForm';
+import CreatePassword from './Autentification/CreatePassword';
 
 const store = createStore(allReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 

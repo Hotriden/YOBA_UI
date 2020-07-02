@@ -80,14 +80,14 @@ export const salesListItems = (
       <ListItemText primary="Sales" />
     </ListItem>
     </Link>
-    <Link style={style} to="/Deposit">
-      <ListItem button>
-        <ListItemIcon>
-          <CreditCardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Deposits" />
-      </ListItem>
-      </Link>
+    <Link style={style} to="/Payment">
+    <ListItem button>
+      <ListItemIcon>
+        <CreditCardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Payments" />
+    </ListItem>
+    </Link>
   </div>
 );
 
@@ -110,13 +110,13 @@ export const financeListItems = (
       <ListItemText primary="Expences" />
     </ListItem>
     </Link>
-    <Link style={style} to="/Payment">
-    <ListItem button>
-      <ListItemIcon>
-        <MoneyIcon />
-      </ListItemIcon>
-      <ListItemText primary="Payments" />
-    </ListItem>
+    <Link style={style} to="/Deposit">
+      <ListItem button>
+        <ListItemIcon>
+          <MoneyIcon />
+        </ListItemIcon>
+        <ListItemText primary="Deposits" />
+      </ListItem>
     </Link>
   </div>
 );
