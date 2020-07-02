@@ -32,7 +32,7 @@ export async function GetUser() {
 }
 
 export async function Registration(props) {
-    var result = await axios.post('http://apiyoba.pp.ua/api/register',  {
+    var result = await axios.post('http://apiyoba.pp.ua/api/register', {
         email: props.email,
         password: props.password,
         FirstName: props.userName

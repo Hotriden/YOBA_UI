@@ -125,17 +125,17 @@ async function setWareHouseData(){
           </Menu>
         </div>
       </Grid>
-      <Grid item md={10} lg={12} xs={12}>
+      <Grid item xs={12}>
         <Paper className='materialTable'>
           <MainTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Warehouses recent operations'/>
         </Paper>
       </Grid>
-      <Grid item md={4} lg={6} xs={6}>
+      <Grid item xs={6}>
         <Paper className='infoTable'>
           <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Warehouses recent operations'/>
         </Paper>
       </Grid>
-      <Grid item lg={6} xs={6}>
+      <Grid item xs={6}>
         <Paper className='infoTable'>
           <OperationsTable dataArray={cookies.get('_uc')?fetchData:tempDataWareHouseInfo} columns={tempColumnsWareHouseInfo} title='WareHouses info'/>
         </Paper>
