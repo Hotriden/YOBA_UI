@@ -4,20 +4,20 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 export async function Recover(props) {
-    var result =  await axios.post('http://yobaapp-001-site1.btempurl.com/api/Recover',  {
+    var result =  await axios.post('http://apiyoba.pp.ua/api/Recover',  {
         Email: props.email
     });
     return result;
 }
 
 export async function CreatePassword(props) {
-    var result = await axios.post('http://yobaapp-001-site1.btempurl.com/api/ResetPassword', {
+    var result = await axios.post('http://apiyoba.pp.ua/api/ResetPassword', {
          Password: props.newPassword, Token: props.token, Email: props.email, ConfirmPassword: props.confirmPassword });
     return result;
 }
 
 export async function GetJwt(props) {
-    let result = await axios.post('http://yobaapp-001-site1.btempurl.com/api/login/signin',  {
+    let result = await axios.post('http://apiyoba.pp.ua/api/login/signin',  {
         email: props.email,
         password: props.password
     })
@@ -26,12 +26,12 @@ export async function GetJwt(props) {
 }
 
 export async function GetUser() {
-    await axios.get('http://yobaapp-001-site1.btempurl.com/api/Login/GetUser', {headers: { 'Authorization': 'Bearer ' + cookies.get('_uc')}})
+    await axios.get('http://apiyoba.pp.ua/api/Login/GetUser', {headers: { 'Authorization': 'Bearer ' + cookies.get('_uc')}})
     .then(res => cookies.set('_user', res.data));
 }
 
 export async function Registration(props) {
-    var result = await axios.post('http://yobaapp-001-site1.btempurl.com/api/register',  {
+    var result = await axios.post('http://apiyoba.pp.ua/api/register',  {
         email: props.email,
         password: props.password,
         FirstName: props.userName

@@ -36,6 +36,7 @@ function RegistrationForm(props) {
   const [errorPassword, setErrorPassword] = useState('');
   const [errorCheckPassword, setErrorCheckPassword] = useState('');
   const [errorSend, setErrorSend] = useState('');
+  const [successSend, setSuccessSend] = useState('');
   const [registrationResult, setRegistrationResult] = useState(false);
   const dispatch = useDispatch();
 
@@ -103,25 +104,29 @@ function RegistrationForm(props) {
     try{
       dispatch(LoadSwitchOn());
       var result = await Registration({email, password, userName});
-      setErrorSend(result.data);
+      setSuccessSend(result.data);
       if(result.data.status===200){
+        setSuccessSend(result.data);
         setRegistrationResult(true);
       }
-      else{
-        setErrorSend("Connection problems");
+      if(result.data.status===409){
+        setErrorSend("User already exist. Wanna recover your password?")
       }
       dispatch(LoadSwitchOff());
     }
-  catch(error){
-    if(error.message==='Network Error'){
-      setErrorSend(error.message);
+    catch(error){
+      if(error.message==='Network Error'){
+        setErrorSend(error.message);
+      }
+      if(error.message==='Request failed with status code 409'){
+        setErrorSend("User already exist. Wanna recover your password?")
+      }
+      else{
+        setErrorSend(error.message);
+      }
+      dispatch(LoadSwitchOff());
+    }
   }
-  else{
-      setErrorSend('Registration failed. Try again.');
-  }
-  dispatch(LoadSwitchOff());
-  }
-}
 
 const keyBoard_enter=(event)=> {
   if (event.keyCode === 13) {
@@ -176,7 +181,8 @@ const keyBoard_enter=(event)=> {
       case 2:
         return (
           <div>
-            <p>{!errorSend ? 'Finish procedure and check your ' + email + ' email account for accept registration' : null}</p>
+            <p>{successSend||errorSend ?null:'Finish procedure and check your ' + email + ' email account for accept registration'}</p>
+            <p className={classes.Message}>{successSend ? successSend : null}</p>
             <p className={classes.Next}>{errorSend ? errorSend : null}</p>
           </div>
         );
@@ -188,6 +194,9 @@ const keyBoard_enter=(event)=> {
   function finish_reg() {
     if(errorSend){
       window.location.assign("/Recover")
+    }
+    if(successSend){
+      window.location.assign("/")
     }
     else{
       SendRegistrationData();
@@ -261,6 +270,9 @@ const styles = theme => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
+  },
+  Message: {
+    color: '#3f51b5'
   }
 });
 
