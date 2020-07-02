@@ -50,7 +50,7 @@ const tempColumnsInfo = [
 
 function Suppliers(props) {
 
-const [fetchData, setFetchData] = useState('');
+const [fetchData, setFetchData] = useState([{}]);
 const [operation, setOperation] = useState('');
 const [report, setReport] = useState('');
 const { classes } = props;

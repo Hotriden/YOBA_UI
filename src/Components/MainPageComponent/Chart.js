@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Typography from '@material-ui/core/Typography';
 
 export default function Chart(props) {
   const theme = useTheme();
+  const [data, setData] = useState(props.dataArray);
 
   return (
     <React.Fragment>
@@ -13,7 +14,7 @@ export default function Chart(props) {
       </Typography>
       <ResponsiveContainer>
         <LineChart
-          data={props.dataArray}
+          data={data}
           margin={{
             top: 16,
             right: 16,

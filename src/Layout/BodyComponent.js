@@ -1,4 +1,4 @@
-import React, {useState }from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -56,7 +56,10 @@ const cookies = new Cookies();
 
 export default function BodyComponent(props) {
 
+  const [fetchChartData, setFetchChartData] = useState([{}]);
+  const [fetchData, setFetchData] = useState([{}]);
   const classes = useStyles();
+
 
   return(
     <main className='content'>
@@ -65,14 +68,14 @@ export default function BodyComponent(props) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={8} lg={9}>
             <Paper className='paper'>
-              <Chart dataArray={chartData}/>
+              <Chart dataArray={cookies.get('_uc')?fetchChartData:chartData}/>
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={3}>
-            <OperationTable dataArray={cookies.get('_uc')?"":tempDataInfo} columns={tempColumnsInfo} title='Payments info' linkOnTable="/Payments" linkTableName="See more payments"/>
+            <OperationTable dataArray={cookies.get('_uc')?fetchData:tempDataInfo} columns={tempColumnsInfo} title='Payments info' linkOnTable="/Payments" linkTableName="See more payments"/>
           </Grid>
           <Grid item xs={12}>
-            <OperationTable dataArray={cookies.get('_uc')?"":tempDataOperations} columns={tempColumnsOperations} title='Order info' linkOnTable="/Orders" linkTableName="See more orders"/>
+            <OperationTable dataArray={cookies.get('_uc')?fetchData:tempDataOperations} columns={tempColumnsOperations} title='Order info' linkOnTable="/Orders" linkTableName="See more orders"/>
           </Grid>
         </Grid>
         <Box pt={4}>
