@@ -45,7 +45,7 @@
   }
 }
 
-.button-signIn, .button-signUp {
+.button-signIn, .button-signUp, .ModalBox {
   display: block;
   max-width: 12vw;
 }

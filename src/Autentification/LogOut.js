@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import './ModalBoxStyle.css';
 
 const cookies = new Cookies();
 
