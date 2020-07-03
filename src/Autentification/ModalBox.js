@@ -20,12 +20,20 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+
 
 function ModalBox (props) {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [anchorEl, setAnchorEl] = React.useState(null);
     const { classes } = props;
 
     const cleanBox = () => {
@@ -64,6 +72,23 @@ function ModalBox (props) {
             jwtApi(event);
         }
       }
+
+      const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+    
+      const handleCloseReg = () => {
+        setAnchorEl(null);
+        dispatch(LogInSwitchOn());
+      };
+      const handleCloseLog = () => {
+        setAnchorEl(null);
+        dispatch(LogInSwitchOff());
+      };
+
+      const handleClose = () => {
+        setAnchorEl(null);
+      };
 
     function validateForm() {
 
@@ -115,36 +140,52 @@ function ModalBox (props) {
         }
       }
 
-    const style = {
-        textDecoration: 'none',
-        color: 'white',
-    }
+    
     return(
         <div>
-        <Backdrop className={classes.backdrop} open={props.Store.LoadBar}>
-            <CircularProgress color="inherit" />
-        </Backdrop>
-            <Button
-              variant="outlined"
-              color="inherit"
-              className="button-signIn"
-              endIcon={<ExitToAppIcon fontSize="large"></ExitToAppIcon>}
-              onClick={() => dispatch(LogInSwitchOn())}
-            >
-                Sign In
-            </Button>
-            <Link style={style} to="/Register">
-            <Button
-              variant="outlined"
-              className="button-signUp"
-              color="inherit"
-              endIcon={ <FaceIcon fontSize="large"/> }
-              onClick={() => dispatch(LogInSwitchOff())}
-            >
-                Sign Up
-            </Button>
-            </Link>
-            <div >
+            <Backdrop className={classes.backdrop} open={props.Store.LoadBar}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            <div className='AppBar'>
+                <IconButton edge="start" color="inherit" aria-label="menu" aria-haspopup="true" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                    <MenuIcon/>
+                </IconButton>
+                <Menu
+                    className='menu-bar'
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <Link className='link-style-menu' to="/">
+                        <MenuItem onClick={handleCloseReg}>Sign In</MenuItem>
+                    </Link>
+                    <Link className='link-style-menu' to="/Register">
+                        <MenuItem onClick={handleCloseLog}>Sign Up</MenuItem>
+                    </Link>
+                </Menu>
+            </div>
+            <div className='button-panel'>
+                <Button
+                variant="outlined"
+                color="inherit"
+                className="button-signIn"
+                endIcon={<ExitToAppIcon fontSize="small"></ExitToAppIcon>}
+                onClick={() => dispatch(LogInSwitchOn())}
+                >
+                    Sign In
+                </Button>
+                <Link className='link-style' to="/Register">
+                    <Button
+                    variant="outlined"
+                    className="button-signUp"
+                    color="inherit"
+                    endIcon={ <FaceIcon fontSize="small"/> }
+                    onClick={() => dispatch(LogInSwitchOff())}
+                    >
+                        Sign Up
+                </Button>
+                </Link>
+            </div>
                 <Modal className='animated fadeIn delay-0.9s' disableEscapeKeyDown='true' 
                         isOpen={props.Store.LogInWindow} onRequestClose={() => cleanBox()} ariaHideApp={false}>
                     <Grid container spacing={1}>
@@ -184,7 +225,7 @@ function ModalBox (props) {
                             </Button>
                         </Grid>
                         <Grid className="grid" item xs={6}>
-                            <Link style={style} to="/Recover">
+                            <Link to="/Recover" className="link-recover">
                                 <Button className='button-forg' variant="contained" color="primary" onClick={() => cleanBox()}>
                                     Recover
                                 </Button>
@@ -193,7 +234,6 @@ function ModalBox (props) {
                     </Grid>
                 </Modal>
             </div>
-        </div>
     );
 }
 

@@ -66,7 +66,7 @@ function Layout(props){
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              <Button className={classes.link} onClick={MainPage}><Link to="/" className={classes.link}>YOBA</Link></Button> - Your own business application. Welcome - {cookies.get('_user') ? cookies.get('_user') : 'Guest. You on demo mode. For start using this applcation - create account.'}
+              <Button className={classes.link} onClick={MainPage}><Link to="/" className={classes.link}>YOBA</Link></Button> - Your own business application. Welcome - {cookies.get('_user') ? cookies.get('_user') : 'Guest. You on demo mode, create account.'}
             </Typography>
             { }
             {cookies.get('_uc') ? <LogOut/> : <ModalBox/> }

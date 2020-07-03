@@ -1,3 +1,5 @@
+  html, body {margin: 0; height: 100%; overflow: hidden}
+
 .animated {
     margin-top: 70px;
     position: absolute;
@@ -18,16 +20,41 @@
   border: 0;
 }
 
-.button-log {
-  top: -10px;
-  left: 30px;
-  height: 35px;
-  width: 120px;
-  text-align: center;
-  background-color: #3f51b5;
+.link-style{
+  text-decoration: none;
+  color: white;
 }
-.button-forg {
-  left: 10px;
+
+.link-style-menu{
+  text-decoration: none;
+  color:  #3f51b5;
+}
+
+.menu-bar{
+  margin-top: 30px;
+}
+
+@media only screen and (max-width: 1700px) {
+  .button-panel {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 1699px) {
+  .AppBar {
+    display: none;
+  }
+}
+
+.button-signIn, .button-signUp {
+  display: block;
+  max-width: 12vw;
+}
+.button-signIn {
+  right: 10px;
+}
+
+.button-log, .button-forg {
   top: -10px;
   height: 35px;
   width: 120px;
@@ -35,8 +62,16 @@
   background-color: #3f51b5;
 }
 
-.button-signIn {
-  right: 10px;
+.link-recover{
+  text-decoration: none;
+}
+
+.button-log {
+  left: 30px;
+}
+
+.button-forg {
+  left: 10px;
 }
 
 .field-recover {
