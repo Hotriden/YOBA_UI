@@ -79,7 +79,7 @@ ReactDOM.render(
           <Route path="/Deposit">
             <Deposits/>
           </Route>
-          <Route path="/CreatePassword/:id">
+          <Route path="/CreatePassword/">
             <CreatePassword/>
           </Route>
         </Layout>
