@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Button } from '@material-ui/core';
 import ModalBox from '../Autentification/ModalBox/ModalBox';
-import RegistrationForm from '../Autentification/RegistrationForm';
+import RegistrationForm from '../Autentification/RegistrationForm/RegistrationForm';
 import LogOut from '../Autentification/LogOut';
 import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/MainPageComponent/ListItems';
 import Cookies from 'universal-cookie';

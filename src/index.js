@@ -20,7 +20,7 @@ import Sales from './Components/SaleComponent/Sales';
 import Supplier from './Components/SupplierComponent/Suppliers';
 import Deposits from './Components/DepositComponent/Deposits';
 import WareHouse from './Components/WareHouseComponent/WareHouses';
-import RegistrationForm from './Autentification/RegistrationForm';
+import RegistrationForm from './Autentification/RegistrationForm/RegistrationForm';
 import RecoverForm from './Autentification/RecoverPassword/RecoverPasswordForm';
 import CreatePassword from './Autentification/CreatePassword/CreatePassword';
 import VerifyRegistration from './Autentification/VerifyRegistration/VerifyRegistration';
