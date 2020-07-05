@@ -4,15 +4,16 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useDispatch } from 'react-redux';
-import { LoadSwitchOn } from '../GlobalState/Actions/LoadSwitcher';
-import { LoadSwitchOff } from '../GlobalState/Actions/LoadSwitcher';
-import { Recover } from './SendData';
+import { LoadSwitchOn } from '../../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOff } from '../../GlobalState/Actions/LoadSwitcher';
+import { Recover } from '../SendData';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import './RecoverPassword.scss';
 
 function RecoverPasswordForm(props) {
 
@@ -77,22 +78,22 @@ function RecoverPasswordForm(props) {
   }
 
   return (
-    <div className={classes.root}>
+    <div className='root-RP'>
       <Backdrop className={classes.backdrop} open={props.Store.LoadBar}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Paper className={classes.mainWindow}>
-        <Grid container spacing={1} className={classes.grid}>
+      <Paper className='mainWindow'>
+        <Grid container spacing={1} className='grid'>
             {!click ?
             <Grid  item xs={12}>
-                <h2 className={classes.logbanner}>Input your email</h2>
+                <h2 className='logBanner'>Input your email</h2>
             </Grid>
             : null }
             {!click ?
             <Grid  item xs={12}>
                 <TextField 
                     size='small'
-                    className={'field-recover'}
+                    className='fieldRecover'
                     label="Email" 
                     variant="outlined" 
                     value={email}
@@ -101,23 +102,21 @@ function RecoverPasswordForm(props) {
                 />
             </Grid>
             : null }
-            <Grid item xs={12}>
-                <h2 className={classes.errorMsg}>{errorEmail}</h2>
-                <h2 className={classes.responseMsg}>{responseMsg}</h2>
-            </Grid>
-            <Grid item xs={12}>
+                <h2 className='errorMessage'>{errorEmail}</h2>
+                <h2 className='responseMessage'>{responseMsg}</h2>
               { !click ?
-                <Button className={classes.button_log} disabled={!email} variant="contained" color="primary" size="large" onClick={sendEmail}>
+              <div className='LogBlock'>
+                <Button className='buttonLog' disabled={!email} variant="contained" color="primary" size="small" onClick={sendEmail}>
                     Recover
                 </Button>
+              </div>
                 : 
-                <Link to="/">
-                  <Button className='button-log' variant="contained" color="primary" size="large">
+                <Link to="/" className='fieldResponse'>
+                  <Button variant="contained" className='buttonHome' color="primary" size="large">
                       Home
                   </Button>
                 </Link>
               }
-            </Grid>
         </Grid>
         </Paper>
     </div>
@@ -125,54 +124,9 @@ function RecoverPasswordForm(props) {
 }
 
 const styles = (theme) => ({
-  root: {
-    display: 'grid',
-    marginTop: 100,
-    marginLeft: 80,
-    height: '100%',
-    width: '35%'
-  },
-  Next: {
-    display: 'grid',
-    margitTop: 20
-  },
-  logbanner: {
-    marginTop: 5,
-    marginLeft: 25,
-    height: 10,
-    color:  '#3f51b5',
-    fontSize: 22,
-    outline: 'none',
-    border: 'none'
-  },
-  errorMsg: {
-    padding: 0,
-    marginTop: 5,
-    marginLeft: 10,
-    margin: 0,
-    paddingTop: 15,
-    fontSize: 22,
-    color: 'red',
-  },
-  responseMsg: {
-    padding: 0,
-    marginTop: 5,
-    marginLeft: 10,
-    margin: 0,
-    paddingTop: 15,
-    fontSize: 22,
-    color:  '#3f51b5',
-  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
-  },
-  button_log: {
-    height: 30,
-    width: 140,
-    marginBottom: 20,
-    marginLeft: 40,
-    marginTop: -20
   }
 });
 

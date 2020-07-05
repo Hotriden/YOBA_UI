@@ -12,12 +12,13 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useDispatch } from 'react-redux';
-import { LoadSwitchOn } from '../GlobalState/Actions/LoadSwitcher';
-import { LoadSwitchOff } from '../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOn } from '../../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOff } from '../../GlobalState/Actions/LoadSwitcher';
 import { Link } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Registration } from './SendData';
+import { Registration } from '../SendData';
+import './RegistrationForm.scss';
 
 function getSteps() {
   return ['Input personal data', 'Create an ad group', 'Create an ad'];
@@ -163,13 +164,13 @@ const keyBoard_enter=(event)=> {
         return ( 
           <div>
             <TextField id="standard-secondary" label="User name" color="secondary" value={userName} onChange={e => setUserName(e.target.value)} onKeyDown={keyBoard_enter} />
-            <div className={classes.error}>{errorUserName}</div>
+            <div className='errorRF'>{errorUserName}</div>
             <TextField id="standard-secondary" label="Email adress" type="email" color="secondary" value={email} onChange={e => setEmail(e.target.value)} onKeyDown={keyBoard_enter} />
-            <div className={classes.error}>{errorEmail}</div>
+            <div className='errorRF'>{errorEmail}</div>
             <TextField id="standard-secondary" label="Password" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} onKeyDown={keyBoard_enter}/>
-            <div className={classes.error}>{errorPassword}</div>
+            <div className='errorRF'>{errorPassword}</div>
             <TextField id="standard-secondary" label="Confirm Password" type="password" autoComplete="current-password" value={checkPassword} onChange={e => setCheckPassword(e.target.value)} onKeyDown={keyBoard_enter}/>
-            <div className={classes.error}>{errorCheckPassword}</div>
+            <div className='errorRF'>{errorCheckPassword}</div>
           </div>);
       case 1:
         return (
@@ -182,8 +183,8 @@ const keyBoard_enter=(event)=> {
         return (
           <div>
             <p>{successSend||errorSend ?null:'Finish procedure and check your ' + email + ' email account for accept registration'}</p>
-            <p className={classes.Message}>{successSend ? successSend : null}</p>
-            <p className={classes.Next}>{errorSend ? errorSend : null}</p>
+            <p className='MessageRF'>{successSend ? successSend : null}</p>
+            <p className='NextRF'>{errorSend ? errorSend : null}</p>
           </div>
         );
       default:
@@ -204,7 +205,7 @@ const keyBoard_enter=(event)=> {
   }
 
   return (
-    <div className={classes.root}>
+    <div className='rootRF'>
       <Backdrop className={classes.backdrop} open={props.Store.LoadBar}>
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -233,7 +234,7 @@ const keyBoard_enter=(event)=> {
                     }
                     </div>
                     :
-                    <Link className={classes.main} to="/">
+                    <Link className='mainRF' to="/">
                       <Button type="submit" variant="contained" color="primary" className='button'>
                           Main menu
                       </Button>

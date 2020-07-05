@@ -1,4 +1,3 @@
-
 .animated {
     margin-top: 70px;
     position: absolute;
@@ -24,7 +23,7 @@
   color: white;
 }
 
-.link-style-menu{
+.linkStyleMenu{
   text-decoration: none;
   color:  #3f51b5;
 }
@@ -34,7 +33,7 @@
 }
 
 @media only screen and (max-width: 1700px) {
-  .button-panel {
+  .buttonPanel {
     display: none;
   }
 }
@@ -45,32 +44,32 @@
   }
 }
 
-.button-signIn, .button-signUp, .ModalBox {
+.buttonSignIn, .buttonSignUp, .ModalBox {
   display: block;
   max-width: 12vw;
 }
-.button-signIn {
+.buttonSignIn {
   right: 10px;
 }
 
-.button-log, .button-forg {
-  top: -10px;
+.buttonLogIn, .button-forg {
+  top: -25px;
   height: 35px;
   width: 120px;
   text-align: center;
   background-color: #3f51b5;
 }
 
-.link-recover{
-  text-decoration: none;
-}
-
-.button-log {
+.buttonLogIn {
   left: 30px;
 }
 
 .button-forg {
   left: 10px;
+}
+
+.linkRecover{
+  text-decoration: none;
 }
 
 .field-recover {
@@ -80,20 +79,20 @@
   left: 10px;
 }
 
-.field-log {
+.fieldLog {
   top: 5px;
   width: 150px;
   min-height: 10px;
   left: 10px;
 }
 
-.field-pass {
+.fieldPass {
   top: 5px;
   width: 150px;
   min-height: 10px;
 }
 
-.log-banner {
+.logBanner {
   margin-top: 5px;
   text-align: center;
   height: 10px;
@@ -104,12 +103,10 @@
 }
 
 .errorMsg{
-  padding: 0px;
   text-align: center;
-  margin-top: 5px;
-  margin: 0px;
+  width: 100%;
   color: red;
-  font-size: 18px;
-  padding-top: 18px;
-  padding-bottom: 10px;
+  font-size: 16px;
+  position: relative;
+  top: -10px;
 }
