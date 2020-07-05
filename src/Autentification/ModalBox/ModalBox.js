@@ -5,22 +5,21 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TextField from '@material-ui/core/TextField';
-import { GetJwt } from './SendData';
-import { GetUser } from './SendData';
-import './Animate.css';
-import './ModalBoxStyle.css';
+import { GetJwt } from '../SendData';
+import { GetUser } from '../SendData';
+import '../Animate.css';
+import './ModalBoxStyle.scss';
 import { connect } from 'react-redux'; 
 import { useDispatch } from 'react-redux';
-import { LogInSwitchOn } from '../GlobalState/Actions/LogInSwitcher';
-import { LogInSwitchOff } from '../GlobalState/Actions/LogInSwitcher';
-import { LoadSwitchOn } from '../GlobalState/Actions/LoadSwitcher';
-import { LoadSwitchOff } from '../GlobalState/Actions/LoadSwitcher';
+import { LogInSwitchOn } from '../../GlobalState/Actions/LogInSwitcher';
+import { LogInSwitchOff } from '../../GlobalState/Actions/LogInSwitcher';
+import { LoadSwitchOn } from '../../GlobalState/Actions/LoadSwitcher';
+import { LoadSwitchOff } from '../../GlobalState/Actions/LoadSwitcher';
 import { Link } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
@@ -156,19 +155,19 @@ function ModalBox (props) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <Link className='link-style-menu' to="/">
+                    <Link className='linkStyleMenu' to="/">
                         <MenuItem onClick={handleCloseReg}>Sign In</MenuItem>
                     </Link>
-                    <Link className='link-style-menu' to="/Register">
+                    <Link className='linkStyleMenu' to="/Register">
                         <MenuItem onClick={handleCloseLog}>Sign Up</MenuItem>
                     </Link>
                 </Menu>
             </div>
-            <div className='button-panel'>
+            <div className='buttonPanel'>
                 <Button
                 variant="outlined"
                 color="inherit"
-                className="button-signIn"
+                className="buttonSignIn"
                 endIcon={<ExitToAppIcon fontSize="small"></ExitToAppIcon>}
                 onClick={() => dispatch(LogInSwitchOn())}
                 >
@@ -177,7 +176,7 @@ function ModalBox (props) {
                 <Link className='link-style' to="/Register">
                     <Button
                     variant="outlined"
-                    className="button-signUp"
+                    className="buttonSignUp"
                     color="inherit"
                     endIcon={ <FaceIcon fontSize="small"/> }
                     onClick={() => dispatch(LogInSwitchOff())}
@@ -190,12 +189,12 @@ function ModalBox (props) {
                         isOpen={props.Store.LogInWindow} onRequestClose={() => cleanBox()} ariaHideApp={false}>
                     <Grid container spacing={1}>
                         <Grid  item xs={12}>
-                            <h2 className="log-banner">Input your email and password</h2>
+                            <h2 className="logBanner">Input your email and password</h2>
                         </Grid>
                         <Grid  item xs={6}>
                             <TextField 
                                 size='small'
-                                className='field-log'
+                                className='fieldLog'
                                 label="Email" 
                                 variant="outlined" 
                                 value={email}
@@ -206,7 +205,7 @@ function ModalBox (props) {
                         <Grid  item xs={6}>
                             <TextField
                                 size='small'
-                                className='field-pass'
+                                className='fieldPass'
                                 label="Password" 
                                 variant="outlined" 
                                 type="password"
@@ -216,16 +215,16 @@ function ModalBox (props) {
                                 onKeyDown={keyBoard_enter}
                             />
                         </Grid>
+                        <h2 className="errorMsg">{error}</h2>
                         <Grid item xs={12}>
-                            <h2 className="errorMsg">{error}</h2>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button className='button-log' variant="contained" color="primary" size="large" onClick={jwtApi}>
+                            <Button className='buttonLogIn' variant="contained" color="primary" size="large" onClick={jwtApi}>
                                 Log In
                             </Button>
                         </Grid>
                         <Grid className="grid" item xs={6}>
-                            <Link to="/Recover" className="link-recover">
+                            <Link to="/Recover" className="linkRecover">
                                 <Button className='button-forg' variant="contained" color="primary" onClick={() => cleanBox()}>
                                     Recover
                                 </Button>

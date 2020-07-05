@@ -21,8 +21,10 @@ import Supplier from './Components/SupplierComponent/Suppliers';
 import Deposits from './Components/DepositComponent/Deposits';
 import WareHouse from './Components/WareHouseComponent/WareHouses';
 import RegistrationForm from './Autentification/RegistrationForm';
-import RecoverForm from './Autentification/RecoverPasswordForm';
-import CreatePassword from './Autentification/CreatePassword';
+import RecoverForm from './Autentification/RecoverPassword/RecoverPasswordForm';
+import CreatePassword from './Autentification/CreatePassword/CreatePassword';
+import VerifyRegistration from './Autentification/VerifyRegistration/VerifyRegistration';
+import VerifyRegistrationError from './Autentification/VerifyRegistration/VerifyRegistrationError';
 
 const store = createStore(allReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -78,6 +80,12 @@ ReactDOM.render(
           </Route>
           <Route path="/Deposit">
             <Deposits/>
+          </Route>
+          <Route path="/Verify">
+            <VerifyRegistration/>
+          </Route>
+          <Route path="/VerifyError">
+            <VerifyRegistrationError/>
           </Route>
           <Route path="/CreatePassword/:id">
             <CreatePassword/>

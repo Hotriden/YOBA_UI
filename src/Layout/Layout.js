@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Button } from '@material-ui/core';
-import ModalBox from '../Autentification/ModalBox';
+import ModalBox from '../Autentification/ModalBox/ModalBox';
 import RegistrationForm from '../Autentification/RegistrationForm';
 import LogOut from '../Autentification/LogOut';
 import { supplyListItems, salesListItems, financeListItems, staffListItems } from '../Components/MainPageComponent/ListItems';
@@ -24,7 +24,7 @@ import { SideBarSwitcher } from '../GlobalState/Actions/SideBarSwitcher';
 import { LogInSwitchOff } from '../GlobalState/Actions/LogInSwitcher';
 import { RegistrationSwitchOff } from '../GlobalState/Actions/RegistrationSwitcher';
 import { RemindSwitchOff } from '../GlobalState/Actions/RemindSwitcher';
-import RecoverPasswordForm from '../Autentification/RecoverPasswordForm';
+import RecoverPasswordForm from '../Autentification/RecoverPassword/RecoverPasswordForm';
 import { Link } from 'react-router-dom';
 
 const cookies = new Cookies();
