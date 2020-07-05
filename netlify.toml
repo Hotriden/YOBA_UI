@@ -1,0 +1,25 @@
+[[redirects]]
+  from = "/WareHouse"
+  to = "/Warehouse"
+  status = 200
+
+## This rule redirects to an external API, signing requests with a secret
+[[redirects]]
+  from = "/Branch"
+  to = "/Branch/"
+  status = 200
+
+[[redirects]]
+  from = "/Customer/"
+  to = "/Customer"
+  status = 200
+
+[[redirects]]
+  from = "/Customer/"
+  to = "/Customer"
+  status = 200
+
+[[redirects]]
+  from = "/CreatePassword/:id"
+  to = "/CreatePassword/:id"
+  status = 200
